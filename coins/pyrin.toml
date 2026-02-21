@@ -1,0 +1,17 @@
+[coin]
+name = "Pyrin"
+symbol = "PYI"
+algorithm = "pyrinhash"
+hardware = "gpu"
+enabled = true
+
+[wallet]
+address = "pyrin:YOUR_PYI_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://pyi.2miners.com:2060"
+priority = 1
+
+[tuning]
+intensity = "auto"

@@ -1,0 +1,21 @@
+[coin]
+name = "Alephium"
+symbol = "ALPH"
+algorithm = "blake3"
+hardware = "gpu"
+enabled = true
+
+[wallet]
+address = "YOUR_ALPH_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+ssl://alph.2miners.com:443"
+priority = 1
+
+[[pools.list]]
+url = "stratum+tcp://pool.woolypooly.com:3106"
+priority = 2
+
+[tuning]
+intensity = "auto"

@@ -1,0 +1,18 @@
+[coin]
+name = "Qubic"
+symbol = "QUBIC"
+algorithm = "aigarhash"
+hardware = "cpu"
+enabled = true
+type = "pouw"  # Proof-of-Useful-Work
+
+[wallet]
+address = "YOUR_QUBIC_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://qubic.solutions:3333"
+priority = 1
+
+[tuning]
+threads = 0  # 0 = auto-detect

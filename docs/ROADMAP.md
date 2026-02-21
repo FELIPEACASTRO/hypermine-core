@@ -1,200 +1,211 @@
-# HyperMine Core — Roadmap Detalhado
+# HyperMine Core — Roadmap Completo (52 Semanas)
 
-## Cronograma Geral (40 Semanas)
+**Versão:** 2.0 (Validado por 6 Especialistas — Fevereiro 2026)
 
-| Fase | Período | Descrição | Status |
-|------|---------|-----------|--------|
-| 1 | Semanas 1–4 | Fundação e Infraestrutura | 🔲 Planejado |
-| 2 | Semanas 5–12 | Implementação dos Algoritmos | 🔲 Planejado |
-| 3 | Semanas 13–16 | Protocolo Stratum e Rede | 🔲 Planejado |
-| 4 | Semanas 17–22 | Otimizações Avançadas | 🔲 Planejado |
-| 5 | Semanas 23–26 | Configuração e Parametrização | 🔲 Planejado |
-| 6 | Semanas 27–30 | Monitoramento e Dashboard | 🔲 Planejado |
-| 7 | Semanas 31–36 | Testes e Benchmarks | 🔲 Planejado |
-| 8 | Semanas 37–40 | Empacotamento e Distribuição | 🔲 Planejado |
+Este roadmap detalha todas as fases de desenvolvimento do HyperMine Core, desde a concepção até o release v1.0.0. Cada fase inclui tarefas específicas, tecnologias envolvidas, critérios de conclusão e estimativas de esforço.
 
 ---
 
-## Fase 1 — Fundação e Infraestrutura (Semanas 1–4)
+## Cronograma Geral (52 Semanas)
 
-### Semana 1: Setup do Ambiente
-
-A primeira semana é dedicada à configuração completa do ambiente de desenvolvimento. O sistema de build CMake é configurado com suporte a compilação cruzada (Linux x86-64, Linux ARM64, Windows x86-64), integração com o toolchain Rust via `corrosion-rs`, e detecção automática de CUDA e OpenCL. O CI/CD é configurado no GitHub Actions com pipelines para build, testes e benchmarks em cada push.
-
-**Entregas:**
-- Repositório inicializado com `.gitignore`, `LICENSE` (MIT), e `README.md`
-- `CMakeLists.txt` raiz com detecção de features (SIMD, CUDA, OpenCL)
-- `Cargo.toml` workspace com crates para cada módulo Rust
-- GitHub Actions workflow para CI/CD
-- Dockerfile base para builds reproduzíveis
-
-### Semana 2: Hardware Abstraction Layer (HAL)
-
-A HAL define a interface que todos os backends de hardware devem implementar. Essa interface inclui: `initialize()` para setup do dispositivo, `allocate()` para alocação de memória no dispositivo, `submit()` para envio de trabalho, `synchronize()` para aguardar conclusão, e `get_metrics()` para coleta de métricas.
-
-**Entregas:**
-- `hal.hpp` com interface abstrata
-- `cpu_backend.cpp` com detecção de CPUID e seleção de SIMD
-- `cuda_backend.cu` com gerenciamento de contexto CUDA
-- `opencl_backend.cpp` com gerenciamento de plataforma/device OpenCL
-- `gpu_info.cpp` com detecção de GPUs e capabilities
-
-### Semana 3: Sistema de Logging e Telemetria
-
-O sistema de logging é implementado com `spdlog` para C++ e `tracing` para Rust, com formatação estruturada (JSON) para integração com ferramentas de análise. As métricas são coletadas em intervalos configuráveis e armazenadas em ring buffers lock-free para evitar impacto na performance de mineração.
-
-**Entregas:**
-- Logger unificado C++/Rust com formatação JSON
-- Coletor de métricas com ring buffer lock-free
-- Métricas de CPU: hashrate, temperatura, frequência, uso
-- Métricas de GPU: hashrate, temperatura, power draw, fan speed, memory usage
-
-### Semana 4: Framework de Testes e Benchmarks
-
-O framework de testes utiliza Google Test para C++ e `cargo test` para Rust. O framework de benchmarks utiliza Google Benchmark para microbenchmarks e um sistema custom para benchmarks end-to-end de mineração.
-
-**Entregas:**
-- Suite de testes unitários para HAL
-- Framework de microbenchmarks para funções hash
-- Scripts de benchmark automatizado
-- Baseline de performance para comparação futura
+| Fase | Período | Descrição | Entregas Principais |
+|---|---|---|---|
+| 1 | Semanas 1-6 | Fundação e Infraestrutura | CMake + Cargo, HAL CPU/GPU, CI/CD, Telemetria |
+| 2 | Semanas 7-14 | Algoritmos Core | SHA-256, RandomX, Etchash, KAWPOW (otimizados) |
+| 3 | Semanas 15-20 | Networking e Stratum | Stratum V1/V2, NOISE, TLS 1.3, Failover |
+| 4 | Semanas 21-28 | Algoritmos Expandidos | 12+ algoritmos (kHeavyHash, Blake3, NexaPoW, etc.) |
+| 5 | Semanas 29-34 | Otimização Avançada | CUDA Graphs, BOLT, Merge Mining, PoUW |
+| 6 | Semanas 35-38 | Segurança Enterprise | Certificate Pinning, Anti-tampering, Audit |
+| 7 | Semanas 39-44 | Monitoramento | Prometheus, Grafana, Alertas, Dashboards |
+| 8 | Semanas 45-52 | Release v1.0.0 | Testes, Benchmarks, Documentação, Release |
 
 ---
 
-## Fase 2 — Implementação dos Algoritmos (Semanas 5–12)
+## Fase 1 — Fundação e Infraestrutura (Semanas 1-6)
 
-### Semanas 5–6: SHA-256 e Derivados
+### Semana 1-2: Ambiente de Desenvolvimento e Build System
 
-A implementação do SHA-256 é a base para Bitcoin e 25+ outras moedas. São criadas 7 variantes otimizadas, cada uma para um conjunto de instruções diferente. A seleção é feita em runtime via CPUID, sem necessidade de recompilação.
+O ambiente de desenvolvimento precisa suportar compilação cruzada para Linux, Windows e macOS, além de integração com toolchains de GPU (CUDA, HIP/ROCm, OpenCL). O sistema de build utiliza CMake como orquestrador principal, com integração nativa para módulos Rust via `corrosion-rs` e kernels CUDA/HIP/OpenCL.
 
-O processo de implementação segue uma abordagem incremental: primeiro a versão genérica (C++ puro) como referência, depois as versões SIMD (SSE4.2 → AVX2 → AVX-512), depois as versões com extensões de hardware (SHA-NI, ARM SHA2), e finalmente a versão Assembly hand-tuned para os hotspots restantes.
+| Ferramenta | Versão Mínima | Propósito |
+|---|---|---|
+| CMake | 3.28+ | Sistema de build multiplataforma |
+| GCC / Clang | 13+ / 17+ | Compiladores C++ com suporte a C++20 |
+| Rust (rustc) | 1.75+ | Compilador Rust com edição 2024 |
+| CUDA Toolkit | 12.0+ | SDK para programação GPU NVIDIA |
+| ROCm/HIP | 6.0+ | SDK para programação GPU AMD |
+| OpenCL SDK | 3.0+ | SDK para programação GPU Intel/Universal |
+| NASM | 2.16+ | Assembler para rotinas Assembly x86-64 |
+| Google Benchmark | 1.8+ | Framework de microbenchmarks |
 
-**Entregas:**
-- 7 variantes de SHA-256 (genérica, SSE4.2, AVX2, AVX-512, SHA-NI, ARM NEON, Assembly)
-- Dispatcher automático baseado em CPUID
-- Testes de corretude contra vetores de teste oficiais (NIST)
-- Benchmarks comparativos entre variantes
+**Entregáveis:** Repositório inicializado, CI/CD com GitHub Actions, build system funcional para C++20 + Rust + CUDA + HIP + OpenCL.
 
-### Semanas 7–8: Ethash, Etchash e Algoritmos DAG
+### Semana 3-4: Hardware Abstraction Layer (HAL)
 
-A implementação do Ethash requer a geração do DAG (Directed Acyclic Graph), uma estrutura de dados de ~5GB que é recalculada a cada época (~5 dias). A geração do DAG é paralelizada em GPU para completar em segundos ao invés de minutos.
+A HAL abstrai as diferenças entre CPU, GPU NVIDIA, GPU AMD e GPU Intel. Ela expõe uma interface unificada que permite aos algoritmos executarem em qualquer hardware sem modificação. A HAL é implementada em C++20 com bindings para Rust via FFI com overhead zero. A HAL formaliza interfaces para abstrair ISAs SIMD (SSE4.2, AVX2, AVX-512, AVX10, SHA-NI, NEON, SVE, SVE2, AMX), NUMA, Huge Pages, CXL Memory, e backends GPU (CUDA, HIP, OpenCL).
 
-O kernel de mineração implementa o loop de lookup no DAG com 64 acessos pseudo-aleatórios de 128 bytes cada. A otimização principal é o uso de shared memory para cache dos dados mais acessados e prefetching para reduzir a latência dos acessos à memória global.
+**Entregáveis:** HAL CPU com detecção automática de SIMD via CPUID, HAL GPU com backends CUDA/HIP/OpenCL, benchmarks de overhead da HAL.
 
-**Entregas:**
-- Gerador de DAG paralelo (CPU e GPU)
-- Kernel CUDA otimizado para Ethash/Etchash
-- Kernel OpenCL otimizado para Ethash/Etchash
-- Suporte a DAG caching para troca rápida entre moedas
+### Semana 5-6: Telemetria e Logging
 
-### Semanas 9–10: RandomX, Scrypt e Algoritmos Memory-Hard
+O sistema de telemetria utiliza ring buffers e lock-free queues para exportação de métricas com overhead mínimo. O logging utiliza `spdlog` (C++) e `tracing` (Rust) com formatação JSON estruturada. A camada de telemetria é projetada para suportar farms de 1000+ GPUs sem degradação de performance.
 
-O RandomX é o algoritmo mais complexo de implementar devido ao seu compilador JIT que gera programas aleatórios em tempo de execução. A implementação inclui backends JIT para x86-64 e ARM64, com otimizações específicas para cada micro-arquitetura.
-
-O Scrypt é implementado com variantes para diferentes parâmetros (N=1024 para Litecoin/Dogecoin, N=2048 para outros), com lookup tables otimizadas para cache L1/L2.
-
-**Entregas:**
-- Compilador JIT RandomX para x86-64 e ARM64
-- Alocador de Huge Pages com fallback para páginas normais
-- Implementação Scrypt com variantes parametrizáveis
-- Testes de corretude contra implementações de referência
-
-### Semanas 11–12: KAWPOW, Equihash, X-Series e Demais Algoritmos
-
-As últimas semanas da Fase 2 implementam os algoritmos restantes. O KAWPOW (ProgPoW variant) é implementado com kernels CUDA/OpenCL que utilizam cache L1 do GPU de forma intensiva. O Equihash utiliza o algoritmo de Wagner otimizado com sorting paralelo. A família X11/X13/X16/X17 implementa o encadeamento de funções hash com dados mantidos em registradores SIMD.
-
-**Entregas:**
-- Kernels CUDA/OpenCL para KAWPOW, Equihash, Autolykos2, FiroPoW
-- Implementação X11/X13/X16/X17 com SIMD
-- GhostRider com rotação de 15 algoritmos
-- Yescrypt/YesPoWer para CPU
-- Testes de corretude para todos os algoritmos
+**Entregáveis:** Sistema de logging funcional, exportação de métricas para Prometheus, API REST básica.
 
 ---
 
-## Fase 3 — Protocolo Stratum e Rede (Semanas 13–16)
+## Fase 2 — Algoritmos Core (Semanas 7-14)
 
-### Semanas 13–14: Stratum V1
+### Semana 7-8: SHA-256 (8 Variantes)
 
-A implementação do Stratum V1 em Rust utiliza `tokio` para I/O assíncrono e `serde_json` para parsing de mensagens JSON-RPC. O parser é otimizado para zero-allocation na maioria dos casos, reutilizando buffers pré-alocados.
+Implementação do SHA-256 com 8 variantes otimizadas. A seleção da variante é automática via CPUID em runtime.
 
-**Entregas:**
-- Cliente Stratum V1 completo (subscribe, authorize, notify, submit)
-- Parser JSON-RPC zero-allocation
-- Connection pooling com reconexão automática
-- Testes contra pools reais (testnet)
+| Variante | Técnica | Speedup Esperado |
+|---|---|---|
+| Genérico | C++ puro | 1x (baseline) |
+| SSE4.2 | SIMD 128-bit | ~2x |
+| AVX2 | SIMD 256-bit, 4 hashes paralelos | ~4x |
+| AVX-512 | SIMD 512-bit, 8 hashes paralelos | ~8x |
+| SHA-NI | Extensões nativas Intel/AMD SHA | ~4x com menor consumo |
+| ARM NEON | SIMD ARM 128-bit | ~2x |
+| ARM SHA2 | Extensões nativas ARM SHA-256 | ~4x |
+| Assembly x86-64 | Rotinas hand-tuned | ~10-15% sobre AVX-512 |
 
-### Semanas 15–16: Stratum V2 e Gerenciamento de Jobs
+### Semana 9-10: RandomX (Monero)
 
-O Stratum V2 é implementado com framing binário, criptografia TLS 1.3 e suporte ao Job Declaration Protocol. O gerenciamento de jobs utiliza uma fila de prioridade lock-free que descarta jobs stale imediatamente.
+Compilação JIT dos programas aleatórios, Huge Pages (2MB) para o dataset de 2GB, NUMA-aware allocation, AES-NI para rodadas de criptografia. Otimização específica para AMD 3D V-Cache.
 
-**Entregas:**
-- Cliente Stratum V2 com framing binário
-- TLS 1.3 com 0-RTT resume
-- Fila de jobs lock-free com descarte automático de stale jobs
-- Failover automático entre pools (<1s de downtime)
-- Load balancing configurável entre pools
+### Semana 11-12: Etchash (Ethereum Classic)
 
----
+Geração do DAG otimizada com pré-computação paralela, shared memory na GPU, pipeline de lookup com prefetching. Kernels CUDA e HIP com CUDA Graphs.
 
-## Fase 4 — Otimizações Avançadas (Semanas 17–22)
+### Semana 13-14: KAWPOW (Ravencoin)
 
-### Semanas 17–18: Otimizações de Memória
+Equilíbrio entre otimização de computação e memória. Kernels CUDA e HIP com estratégias de cache sofisticadas.
 
-Implementação de Huge Pages (2MB e 1GB), NUMA-aware allocation, memory pools (arena allocators) e cache line alignment. Cada otimização é medida individualmente para quantificar seu impacto no hashrate.
-
-### Semanas 19–20: Otimizações de GPU
-
-Implementação de persistent kernels, warp-level primitives, shared memory banking optimization e async memory transfers. Profiling com NVIDIA Nsight e AMD CodeXL para identificar e eliminar gargalos.
-
-### Semanas 21–22: Otimizações de Rede e Compilação
-
-Implementação de TCP_NODELAY, kernel bypass (io_uring), submissão especulativa de shares. Configuração de PGO (Profile-Guided Optimization) e LTO (Link-Time Optimization) no pipeline de build.
+**Entregáveis:** 4 algoritmos core otimizados, benchmarks comparativos, testes com cobertura > 90%.
 
 ---
 
-## Fase 5 — Configuração e Parametrização (Semanas 23–26)
+## Fase 3 — Networking e Stratum (Semanas 15-20)
 
-### Semanas 23–24: Sistema de Configuração
+### Semana 15-16: Stratum V1
 
-Implementação do parser TOML com validação de schema, hot-reload via inotify/FSEvents, e sistema de defaults inteligentes que configura automaticamente parâmetros baseado no hardware detectado.
+JSON-RPC sobre TCP em Rust com `tokio`. Parsing zero-allocation, connection pooling, reconexão automática.
 
-### Semanas 25–26: Configuração por Moeda
+### Semana 17-18: Stratum V2 + NOISE Protocol
 
-Criação dos arquivos de configuração para as 50+ moedas mais populares, com pools recomendados, parâmetros otimizados e documentação inline.
+Frames binários com NOISE NNpsk0 para autenticação mútua e criptografia E2E. Job Declaration Protocol. Redução de latência ~50% vs V1.
 
----
+### Semana 19-20: Failover, Load Balancing e Certificate Pinning
 
-## Fase 6 — Monitoramento e Dashboard (Semanas 27–30)
+Failover < 1s, load balancing proporcional, certificate pinning com hashes de chaves públicas de pools confiáveis.
 
-### Semanas 27–28: API REST e Prometheus
-
-Implementação da API REST local com endpoints para métricas, configuração e controle. Exportador Prometheus com métricas customizadas para integração com Grafana.
-
-### Semanas 29–30: Alertas e Notificações
-
-Sistema de alertas com suporte a Discord, Telegram e Slack via webhooks. Alertas configuráveis para temperatura, hashrate, shares rejeitadas e desconexão de pool.
+**Entregáveis:** Client Stratum V1/V2 completo, NOISE implementado, failover < 1s.
 
 ---
 
-## Fase 7 — Testes e Benchmarks (Semanas 31–36)
+## Fase 4 — Algoritmos Expandidos (Semanas 21-28)
 
-### Semanas 31–33: Suite de Testes
+### Semana 21-22: kHeavyHash (Kaspa) e Blake3 (Alephium)
 
-Testes unitários para cada algoritmo, testes de integração para o pipeline completo de mineração, e testes de stress para operação contínua (72h+).
+Os dois algoritmos mais lucrativos para GPU em 2026. Kernels CUDA e HIP otimizados.
 
-### Semanas 34–36: Benchmarks e Profiling
+### Semana 23-24: NexaPoW, KarlsenHash e PyrinHash
 
-Suite completa de benchmarks para cada algoritmo em cada tipo de hardware. Relatório de performance com comparação contra mineradores de referência (XMRig, T-Rex, lolMiner).
+Algoritmos da "nova onda" de mineração de GPU, essenciais para competitividade em 2025-2026.
+
+### Semana 25-26: VerusHash 2.2, Equihash/ZelHash, Autolykos2
+
+VerusHash 2.2 líder em CPU mining. Equihash/ZelHash para Zcash/Flux. Autolykos2 para Ergo.
+
+### Semana 27-28: FiroPoW, Verthash, GhostRider, AigarHash (PoUW)
+
+Algoritmos restantes incluindo AigarHash do Qubic (Proof-of-Useful-Work).
+
+**Entregáveis:** 12+ algoritmos adicionais, total de 42+ algoritmos.
 
 ---
 
-## Fase 8 — Empacotamento e Distribuição (Semanas 37–40)
+## Fase 5 — Otimização Avançada e Merge Mining (Semanas 29-34)
 
-### Semanas 37–38: Binários e Docker
+### Semana 29-30: CUDA Graphs e GPU Avançado
 
-Geração de binários pré-compilados para as plataformas mais comuns. Imagens Docker com e sem suporte a CUDA.
+CUDA Graphs para todos os kernels NVIDIA, Cooperative Groups, warp-level primitives, otimização de ocupância.
 
-### Semanas 39–40: Documentação Final e Release
+### Semana 31-32: BOLT, AutoFDO e Compilação
 
-Documentação completa, guia de início rápido, FAQ, e release v1.0.0 no GitHub com binários, checksums e notas de release.
+BOLT no pipeline de build, AutoFDO para otimização contínua, custom allocators (jemalloc/mimalloc).
+
+### Semana 33-34: Merge Mining e Profit Switcher
+
+Merge mining LTC+DOGE, profit switcher com rentabilidade combinada, integração PoUW (Qubic, Clore.ai).
+
+**Entregáveis:** CUDA Graphs, BOLT, merge mining, profit switcher avançado.
+
+---
+
+## Fase 6 — Segurança Enterprise-Grade (Semanas 35-38)
+
+### Semana 35-36: Criptografia e Proteção
+
+AES-256-GCM para carteiras, code signing, verificação de integridade em runtime.
+
+### Semana 37-38: API Security e Supply Chain
+
+JWT + rate limiting, cargo-audit, Dependabot, SBOM, fuzzing via AFL++.
+
+**Entregáveis:** Segurança enterprise-grade, auditoria completa.
+
+---
+
+## Fase 7 — Monitoramento e Observabilidade (Semanas 39-44)
+
+### Semana 39-40: Prometheus e Métricas
+
+Prometheus exporter nativo, métricas de hashrate/shares/temperatura/energia/eficiência. Federação para 1000+ GPUs.
+
+### Semana 41-42: Grafana e DCGM/ROCm
+
+Dashboards pré-configurados, DCGM Exporter (NVIDIA), ROCm SMI (AMD).
+
+### Semana 43-44: Alertas
+
+Discord, Telegram, Email, PagerDuty. Alertas para GPU offline, hashrate zero, temp alta, rejection > 2%.
+
+**Entregáveis:** Monitoramento completo, dashboards, alertas.
+
+---
+
+## Fase 8 — Release v1.0.0 (Semanas 45-52)
+
+### Semana 45-46: Testes End-to-End
+
+Sessões completas de mineração simuladas: conexão, job, hash, submit, failover, troca de algoritmo.
+
+### Semana 47-48: Benchmarks Comparativos
+
+Comparação com XMRig, T-Rex, lolMiner, TeamRedMiner, Gminer em todos os algoritmos.
+
+### Semana 49-50: Documentação e Empacotamento
+
+Binários x86-64 (SSE4.2, AVX2, AVX-512) e ARM64 (NEON, SVE). Imagens Docker. Documentação completa.
+
+### Semana 51-52: Release Público
+
+Release v1.0.0 no GitHub com binários, Docker, docs, changelog.
+
+**Entregáveis:** Release v1.0.0 completo.
+
+---
+
+## Pós-Release — Roadmap Futuro
+
+| Versão | Foco | Prazo |
+|---|---|---|
+| v1.1 | AVX10 e AMX | Q2 2026 |
+| v1.2 | CXL Memory e HBM3e | Q3 2026 |
+| v1.3 | ARM SVE2 e RISC-V | Q4 2026 |
+| v2.0 | PoUW completo (AI compute, render farming) | Q1 2027 |
+| v2.1 | Green Mining (ESG, energia renovável) | Q2 2027 |
+| v3.0 | Orquestrador de Computação Distribuída | Q3 2027 |

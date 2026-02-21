@@ -1,0 +1,17 @@
+[coin]
+name = "Nexa"
+symbol = "NEXA"
+algorithm = "nexapow"
+hardware = "gpu"
+enabled = true
+
+[wallet]
+address = "nexa:YOUR_NEXA_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://nexa.acc-pool.pw:16000"
+priority = 1
+
+[tuning]
+intensity = "auto"

@@ -1,0 +1,17 @@
+[coin]
+name = "Beam"
+symbol = "BEAM"
+algorithm = "beamhash"
+hardware = "gpu"
+enabled = true
+
+[wallet]
+address = "YOUR_BEAM_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+ssl://beam.2miners.com:443"
+priority = 1
+
+[tuning]
+intensity = "auto"

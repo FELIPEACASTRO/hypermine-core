@@ -1,0 +1,17 @@
+[coin]
+name = "Karlsen"
+symbol = "KLS"
+algorithm = "karlsenhash"
+hardware = "gpu"
+enabled = true
+
+[wallet]
+address = "karlsen:YOUR_KLS_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://kls.2miners.com:2040"
+priority = 1
+
+[tuning]
+intensity = "auto"

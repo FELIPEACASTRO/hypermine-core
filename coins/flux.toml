@@ -1,0 +1,17 @@
+[coin]
+name = "Flux"
+symbol = "FLUX"
+algorithm = "zelhash"
+hardware = "gpu"
+enabled = true
+
+[wallet]
+address = "YOUR_FLUX_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+ssl://flux.2miners.com:443"
+priority = 1
+
+[tuning]
+intensity = "auto"

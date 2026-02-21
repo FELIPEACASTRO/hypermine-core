@@ -1,0 +1,17 @@
+[coin]
+name = "Neoxa"
+symbol = "NEOX"
+algorithm = "kawpow"
+hardware = "gpu"
+enabled = true
+
+[wallet]
+address = "YOUR_NEOX_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://neox.2miners.com:2020"
+priority = 1
+
+[tuning]
+intensity = "auto"

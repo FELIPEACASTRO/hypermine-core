@@ -1,0 +1,18 @@
+[coin]
+name = "Clore.ai"
+symbol = "CLORE"
+algorithm = "kawpow"
+hardware = "gpu"
+enabled = true
+type = "pouw"  # Proof-of-Useful-Work
+
+[wallet]
+address = "YOUR_CLORE_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://clore.2miners.com:2020"
+priority = 1
+
+[tuning]
+intensity = "auto"

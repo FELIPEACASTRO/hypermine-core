@@ -1,0 +1,21 @@
+[coin]
+name = "VerusCoin"
+symbol = "VRSC"
+algorithm = "verushash22"
+hardware = "cpu"
+enabled = true
+
+[wallet]
+address = "YOUR_VRSC_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://na.luckpool.net:3956"
+priority = 1
+
+[[pools.list]]
+url = "stratum+tcp://eu.luckpool.net:3956"
+priority = 2
+
+[tuning]
+threads = 0  # 0 = auto-detect

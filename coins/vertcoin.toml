@@ -1,0 +1,17 @@
+[coin]
+name = "Vertcoin"
+symbol = "VTC"
+algorithm = "verthash"
+hardware = "gpu"
+enabled = true
+
+[wallet]
+address = "YOUR_VTC_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://vtc.suprnova.cc:5678"
+priority = 1
+
+[tuning]
+intensity = "auto"

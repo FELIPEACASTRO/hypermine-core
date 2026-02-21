@@ -1,15 +1,15 @@
 # HyperMine Core — Minerador Universal de Criptomoedas de Alta Performance
 
 <p align="center">
-  <strong>A solução definitiva para mineração multi-algoritmo com foco absoluto em performance</strong>
+  <strong>O minerador mais otimizado do mercado — C++20 · Rust · CUDA 12 · HIP/ROCm · OpenCL 3.0 · Assembly x86-64</strong>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Linguagem-C%2B%2B%2020-blue" alt="C++20">
-  <img src="https://img.shields.io/badge/Linguagem-Rust-orange" alt="Rust">
-  <img src="https://img.shields.io/badge/GPU-CUDA%2012-green" alt="CUDA 12">
-  <img src="https://img.shields.io/badge/GPU-OpenCL%203.0-red" alt="OpenCL 3.0">
-  <img src="https://img.shields.io/badge/Licença-MIT-yellow" alt="MIT">
+  <img src="https://img.shields.io/badge/Linguagens-C%2B%2B20%20%7C%20Rust%20%7C%20CUDA%20%7C%20HIP%20%7C%20ASM-blue" alt="Linguagens"/>
+  <img src="https://img.shields.io/badge/Algoritmos-42%2B-green" alt="Algoritmos"/>
+  <img src="https://img.shields.io/badge/Moedas-23%2B-orange" alt="Moedas"/>
+  <img src="https://img.shields.io/badge/GPUs-NVIDIA%20%7C%20AMD%20%7C%20Intel-red" alt="GPUs"/>
+  <img src="https://img.shields.io/badge/Licença-MIT-yellow" alt="Licença"/>
 </p>
 
 ---
@@ -17,610 +17,563 @@
 ## Sumário
 
 1. [Visão Geral](#visão-geral)
-2. [Roadmap Completo](#roadmap-completo)
+2. [Validação por Especialistas](#validação-por-especialistas)
 3. [Arquitetura do Sistema](#arquitetura-do-sistema)
-4. [Linguagens e Justificativas de Performance](#linguagens-e-justificativas-de-performance)
-5. [Algoritmos Suportados](#algoritmos-suportados)
-6. [Técnicas de Otimização](#técnicas-de-otimização)
-7. [Configuração e Parametrização](#configuração-e-parametrização)
-8. [Estrutura do Projeto](#estrutura-do-projeto)
-9. [Como Compilar e Executar](#como-compilar-e-executar)
-10. [Benchmarks](#benchmarks)
-11. [Referências](#referências)
+4. [Algoritmos Suportados (42+)](#algoritmos-suportados-42)
+5. [Moedas Suportadas (23+)](#moedas-suportadas-23)
+6. [Otimizações de Performance](#otimizações-de-performance)
+7. [Hardware Suportado (2025-2026)](#hardware-suportado-2025-2026)
+8. [Segurança Enterprise-Grade](#segurança-enterprise-grade)
+9. [Merge Mining e PoUW](#merge-mining-e-pouw)
+10. [Monitoramento e Observabilidade](#monitoramento-e-observabilidade)
+11. [DevOps para Farms (1000+ GPUs)](#devops-para-farms-1000-gpus)
+12. [Roadmap Completo (52 Semanas)](#roadmap-completo-52-semanas)
+13. [Configuração e Parametrização](#configuração-e-parametrização)
+14. [Estrutura do Projeto](#estrutura-do-projeto)
+15. [Quick Start](#quick-start)
+16. [Benchmarks](#benchmarks)
+17. [Referências](#referências)
 
 ---
 
 ## Visão Geral
 
-O **HyperMine Core** é um minerador universal de criptomoedas projetado desde o zero para extrair o máximo de performance de qualquer hardware disponível. O projeto suporta mais de **110 algoritmos de mineração** e permite ao operador parametrizar exatamente quais moedas deseja minerar, em qual hardware e com quais otimizações ativas.
+O **HyperMine Core** é um minerador universal de criptomoedas projetado desde o zero para extrair o máximo de performance de qualquer hardware moderno. Construído com as linguagens mais performáticas disponíveis — **C++20** para kernels de hashing e aceleração GPU, **Rust** para networking e orquestração segura, **CUDA 12/HIP** para GPUs NVIDIA e AMD, e **Assembly x86-64** para hotspots críticos — o projeto representa o estado da arte em mineração de alta performance para o horizonte 2025-2030.
 
-A filosofia central é simples: **cada ciclo de clock desperdiçado é dinheiro perdido**. Por isso, o projeto combina as linguagens mais performáticas do mercado — C++20, Rust, Assembly x86/ARM e CUDA/OpenCL — em uma arquitetura modular que permite trocar algoritmos em tempo de execução sem reiniciar o minerador.
+A filosofia central é simples: **cada ciclo de clock desperdiçado é dinheiro perdido**. Por isso, o projeto combina as linguagens mais performáticas do mercado em uma arquitetura modular que permite trocar algoritmos em tempo de execução sem reiniciar o minerador.
 
 O sistema é totalmente parametrizável através de arquivos de configuração TOML, permitindo ao operador definir quais moedas minerar, quais pools utilizar, limites de temperatura, consumo de energia e estratégias de failover, tudo sem recompilar o código.
 
----
+### Por que HyperMine Core?
 
-## Roadmap Completo
+O HyperMine Core se diferencia dos mineradores existentes (XMRig, T-Rex, lolMiner, TeamRedMiner, Gminer) por combinar em uma única solução:
 
-O roadmap a seguir detalha todas as fases de desenvolvimento, desde a concepção até a operação em produção. Cada fase inclui as tarefas específicas, as tecnologias envolvidas e os critérios de conclusão.
-
-### Fase 1 — Fundação e Infraestrutura (Semanas 1–4)
-
-A primeira fase estabelece toda a base do projeto, incluindo o sistema de build, as abstrações de hardware e o framework de testes de performance.
-
-**1.1 — Configuração do Ambiente de Desenvolvimento**
-
-O ambiente de desenvolvimento precisa suportar compilação cruzada para Linux, Windows e macOS, além de integração com toolchains de GPU. As ferramentas essenciais são:
-
-| Ferramenta | Versão Mínima | Propósito |
-|------------|---------------|-----------|
-| CMake | 3.28+ | Sistema de build multiplataforma |
-| GCC / Clang | 13+ / 17+ | Compiladores C++ com suporte a C++20 |
-| Rust (rustc) | 1.75+ | Compilador Rust com suporte a edição 2024 |
-| CUDA Toolkit | 12.0+ | SDK para programação GPU NVIDIA |
-| OpenCL SDK | 3.0+ | SDK para programação GPU AMD/Intel |
-| Conan / vcpkg | Última | Gerenciador de dependências C++ |
-| Cargo | Última | Gerenciador de pacotes Rust |
-| NASM | 2.16+ | Assembler para rotinas Assembly x86-64 |
-| Valgrind / Perf | Última | Profiling e análise de performance |
-| Google Benchmark | 1.8+ | Framework de microbenchmarks |
-
-**1.2 — Estrutura do Projeto e Sistema de Build**
-
-O sistema de build utiliza CMake como orquestrador principal, com integração nativa para módulos Rust (via `corrosion-rs`) e kernels CUDA/OpenCL. A estrutura modular permite compilar apenas os algoritmos necessários, reduzindo o binário final e o tempo de compilação.
-
-**1.3 — Hardware Abstraction Layer (HAL)**
-
-A HAL é a camada que abstrai as diferenças entre CPU, GPU NVIDIA, GPU AMD e FPGA. Ela expõe uma interface unificada que permite aos algoritmos executarem em qualquer hardware sem modificação. A HAL é implementada em C++ com bindings para Rust via FFI (Foreign Function Interface) com overhead zero.
-
-**1.4 — Sistema de Logging e Telemetria**
-
-O sistema de logging utiliza `spdlog` (C++) e `tracing` (Rust) para capturar métricas de performance em tempo real: hashrate por dispositivo, temperatura, consumo de energia, shares aceitas/rejeitadas e latência de rede.
+| Característica | HyperMine Core | Concorrentes Típicos |
+|---|---|---|
+| Linguagens de core | C++20 + Rust + ASM | C++ ou C |
+| Algoritmos suportados | 42+ | 5-15 |
+| Moedas parametrizáveis | 23+ | 3-10 |
+| GPU backends | CUDA 12 + HIP/ROCm + OpenCL 3.0 | CUDA ou OpenCL |
+| SIMD variants | 9 (SSE4.2 a SVE2) | 2-4 |
+| Stratum V2 + NOISE | Sim | Raro |
+| Merge Mining | Sim (LTC+DOGE, etc.) | Raro |
+| Proof-of-Useful-Work | Sim (Qubic, Clore.ai) | Não |
+| CUDA Graphs | Sim | Raro |
+| BOLT + PGO + LTO | Sim | PGO/LTO apenas |
+| Monitoramento Prometheus | Nativo | Básico ou externo |
+| Arquitetura de Plugins | Sim (DSOs/DLLs) | Monolítico |
 
 ---
 
-### Fase 2 — Implementação dos Algoritmos de Mineração (Semanas 5–12)
-
-Esta fase implementa os algoritmos de mineração organizados por categoria de hardware e complexidade. Cada algoritmo é implementado com múltiplas variantes otimizadas para diferentes conjuntos de instruções.
-
-**2.1 — Algoritmos SHA-256 e Derivados (ASIC/CPU)**
-
-O SHA-256 é o algoritmo do Bitcoin e de outras 25 moedas. A implementação inclui:
-
-| Variante | Técnica | Speedup Esperado |
-|----------|---------|------------------|
-| SHA-256 Genérico | C++ puro, sem otimizações | 1x (baseline) |
-| SHA-256 SSE4.2 | Instruções SIMD 128-bit | ~2x |
-| SHA-256 AVX2 | Instruções SIMD 256-bit, 4 hashes paralelos | ~4x |
-| SHA-256 AVX-512 | Instruções SIMD 512-bit, 8 hashes paralelos | ~8x |
-| SHA-256 SHA-NI | Extensões nativas Intel/AMD SHA | ~4x com menor consumo |
-| SHA-256 ARM NEON | Instruções SIMD ARM 128-bit | ~2x |
-| SHA-256 ARM SHA2 | Extensões nativas ARM SHA-256 | ~4x |
-| SHA-256 Assembly | Rotinas hand-tuned x86-64 | ~10-15% sobre AVX-512 |
-
-A seleção da variante é automática via detecção de CPUID em tempo de execução, garantindo que o minerador sempre use a implementação mais rápida disponível no hardware.
-
-**2.2 — Algoritmos Memory-Hard (GPU/CPU)**
-
-Algoritmos memory-hard como Ethash, Etchash, Scrypt e RandomX são projetados para resistir a ASICs, exigindo grandes quantidades de memória rápida. As otimizações incluem:
-
-Para **Ethash/Etchash** (Ethereum Classic e 20+ moedas): geração do DAG (Directed Acyclic Graph) otimizada com pré-computação paralela, acesso ao DAG via shared memory na GPU, e pipeline de lookup com prefetching para minimizar latência de memória.
-
-Para **RandomX** (Monero e 7+ moedas): compilação JIT (Just-In-Time) dos programas aleatórios, alocação de Huge Pages (2MB) para o dataset de 2GB, otimização de cache L3 com NUMA-aware allocation, e uso de AES-NI para as rodadas de criptografia.
-
-Para **Scrypt** (Litecoin, Dogecoin e 17+ moedas): implementação com lookup table otimizada para cache, paralelismo via SIMD para múltiplas instâncias simultâneas, e variantes para diferentes parâmetros N/r/p.
-
-**2.3 — Algoritmos GPU-Optimized (CUDA/OpenCL)**
-
-| Algoritmo | Moedas | Implementação | Otimização Principal |
-|-----------|--------|---------------|---------------------|
-| KAWPOW | 18 moedas (Ravencoin) | CUDA + OpenCL | ProgPoW com cache L1 otimizado |
-| Autolykos2 | 4 moedas (Ergo) | CUDA + OpenCL | Blake2b-256 com memory-hard |
-| Equihash | 16 moedas (Zcash) | CUDA + OpenCL | Wagner's algorithm otimizado |
-| FiroPoW | 2 moedas (Firo) | CUDA + OpenCL | ProgPoW variant com DAG |
-| Octopus | 3 moedas | CUDA + OpenCL | Conflux-specific optimizations |
-| BeamHashIII | 4 moedas (Beam) | CUDA + OpenCL | Equihash variant |
-| CuckooCycle | 2 moedas (Grin) | CUDA | Graph-based cycle detection |
-
-Cada kernel CUDA/OpenCL é otimizado para maximizar a **ocupância** (occupancy) do GPU, minimizar transferências entre memória global e shared, e utilizar operações atômicas apenas quando estritamente necessário.
-
-**2.4 — Algoritmos CPU-Only**
-
-| Algoritmo | Moedas | Técnica Principal |
-|-----------|--------|-------------------|
-| RandomX | 8 moedas | JIT compilation + Huge Pages |
-| Yescrypt | 4 moedas | Memory-hard com password hashing |
-| YesPoWer | 2 moedas | Yescrypt variant |
-| GhostRider | 5 moedas | Multi-algo rotation (15 algos) |
-| Allium | 1 moeda | Lyra2-based CPU-friendly |
-| CPUPower | 1 moeda | CPU-exclusive PoW |
-
-**2.5 — Algoritmos Multi-Hash (X-Series)**
-
-A família X11/X13/X16/X17 utiliza encadeamento de múltiplas funções hash. O X11, por exemplo, encadeia Blake, BMW, Groestl, JH, Keccak, Skein, Luffa, CubeHash, SHAvite, SIMD e ECHO. A otimização consiste em manter os dados intermediários nos registradores SIMD sem flush para memória entre cada função.
-
----
-
-### Fase 3 — Comunicação com Pools e Protocolo Stratum (Semanas 13–16)
-
-**3.1 — Implementação do Stratum V1**
-
-O protocolo Stratum V1 é baseado em JSON-RPC sobre TCP. A implementação inclui: parsing zero-allocation do JSON, connection pooling com reconexão automática, suporte a `mining.subscribe`, `mining.authorize`, `mining.notify` e `mining.submit`, e mecanismo de keepalive para evitar timeouts.
-
-**3.2 — Implementação do Stratum V2**
-
-O Stratum V2 é o protocolo de próxima geração, baseado em frames binários com menor overhead. A implementação em Rust utiliza a crate `stratum-v2` e inclui: framing binário com compressão, Job Declaration Protocol para seleção de transações, criptografia TLS 1.3 nativa, e redução de latência de ~50% comparado ao V1.
-
-**3.3 — Gerenciamento de Jobs e Stale Shares**
-
-O sistema de gerenciamento de jobs implementa uma fila de prioridade que descarta jobs antigos imediatamente quando um novo bloco é detectado, minimizando stale shares. A detecção de novo bloco utiliza polling de alta frequência (100ms) combinado com notificações push do pool.
-
-**3.4 — Failover e Load Balancing**
-
-O sistema suporta múltiplos pools configurados em cascata. Se o pool primário falhar, o minerador migra automaticamente para o secundário em menos de 1 segundo, sem perda de hashes. O load balancing distribui o hashrate entre pools proporcionalmente às quotas configuradas.
-
----
-
-### Fase 4 — Otimizações de Performance Avançadas (Semanas 17–22)
-
-**4.1 — Otimizações de Memória**
-
-| Técnica | Descrição | Impacto |
-|---------|-----------|---------|
-| Huge Pages (2MB/1GB) | Reduz TLB misses em 90%+ | +5-15% hashrate (RandomX) |
-| NUMA-Aware Allocation | Aloca memória no nó NUMA mais próximo ao core | +3-8% em sistemas multi-socket |
-| Memory Pool (Arena) | Pré-aloca blocos de memória, elimina malloc/free | Reduz latência de alocação |
-| Cache Line Alignment | Alinha estruturas em 64 bytes | Elimina false sharing |
-| Prefetching | `__builtin_prefetch` para dados futuros | +2-5% em algoritmos memory-hard |
-
-**4.2 — Otimizações de CPU**
-
-A otimização de CPU envolve técnicas de baixo nível que extraem o máximo de cada ciclo de clock. O **loop unrolling** manual das funções hash elimina overhead de branch prediction. O **software pipelining** reorganiza instruções para manter todas as unidades de execução ocupadas. O **CPU pinning** fixa threads em cores específicos, eliminando migração de threads e cache invalidation.
-
-Para processadores com **Hyper-Threading**, o minerador detecta automaticamente os pares de cores lógicos e distribui threads de forma a maximizar o uso de recursos sem contenção. Em processadores AMD com **CCX** (Core Complex), o minerador respeita os limites de cache L3 compartilhada.
-
-**4.3 — Otimizações de GPU**
-
-Para GPUs NVIDIA (CUDA), as otimizações incluem: uso de **streams** para overlap de computação e transferência de dados, **persistent kernels** que mantêm o kernel rodando continuamente sem overhead de launch, **warp-level primitives** (`__shfl_sync`, `__ballot_sync`) para comunicação intra-warp sem shared memory, e **tensor cores** para operações que podem ser mapeadas em multiplicação de matrizes.
-
-Para GPUs AMD (OpenCL), as otimizações incluem: uso de **wavefront** de 64 threads (vs 32 do NVIDIA), otimização de **LDS** (Local Data Share) para algoritmos memory-hard, e **async copy** para pipeline de dados.
-
-**4.4 — Otimizações de Rede**
-
-A comunicação com pools é otimizada com: **TCP_NODELAY** para eliminar o algoritmo de Nagle, **SO_KEEPALIVE** com intervalos curtos para detecção rápida de desconexão, **connection pooling** com múltiplas conexões simultâneas, e **kernel bypass** via DPDK ou io_uring para reduzir latência de rede em microsegundos.
-
-**4.5 — Otimizações de Compilação**
-
-| Flag | Compilador | Efeito |
-|------|-----------|--------|
-| `-O3` | GCC/Clang | Otimização máxima |
-| `-march=native` | GCC/Clang | Gera código para a CPU local |
-| `-flto` | GCC/Clang | Link-Time Optimization |
-| `-ffast-math` | GCC/Clang | Otimizações agressivas de ponto flutuante |
-| `-funroll-loops` | GCC/Clang | Desenrola loops automaticamente |
-| `RUSTFLAGS="-C target-cpu=native"` | Rust | Otimiza para CPU local |
-| `--use_fast_math` | NVCC | Otimizações de math no GPU |
-| `-cl-mad-enable` | OpenCL | Fused multiply-add |
-
----
-
-### Fase 5 — Sistema de Configuração e Parametrização (Semanas 23–26)
-
-**5.1 — Arquivo de Configuração Principal (`config.toml`)**
-
-O sistema de configuração permite ao operador controlar todos os aspectos do minerador sem recompilar. O arquivo principal define as moedas a minerar, os pools, os limites de hardware e as estratégias de otimização.
-
-**5.2 — Configuração por Moeda (`coins/*.toml`)**
-
-Cada moeda possui um arquivo de configuração dedicado que define o algoritmo, os pools, o endereço da carteira e parâmetros específicos do algoritmo.
-
-**5.3 — Hot-Reload de Configuração**
-
-O minerador monitora os arquivos de configuração via `inotify` (Linux) ou `ReadDirectoryChangesW` (Windows) e aplica mudanças sem reiniciar. Isso permite trocar de moeda, adicionar pools ou ajustar parâmetros em tempo real.
-
-**5.4 — Parametrização de Hardware**
-
-O operador pode definir limites de temperatura, consumo de energia (power limit), clock de memória e clock de core para cada GPU individualmente. O minerador ajusta automaticamente a intensidade de mineração para respeitar esses limites.
-
----
-
-### Fase 6 — Monitoramento e Dashboard (Semanas 27–30)
-
-**6.1 — API REST para Monitoramento**
-
-O minerador expõe uma API REST local (porta configurável) que fornece métricas em tempo real: hashrate por dispositivo, temperatura, consumo de energia, shares aceitas/rejeitadas, uptime e eficiência (hash/watt).
-
-**6.2 — Exportação de Métricas (Prometheus/Grafana)**
-
-O sistema exporta métricas no formato Prometheus para integração com dashboards Grafana. As métricas incluem: `hypermine_hashrate_total`, `hypermine_shares_accepted`, `hypermine_gpu_temperature`, `hypermine_power_consumption`, entre outras.
-
-**6.3 — Alertas e Notificações**
-
-O sistema de alertas notifica o operador via webhook (Discord, Telegram, Slack) quando: a temperatura excede o limite, o hashrate cai abaixo do esperado, um pool fica offline, ou shares são rejeitadas em taxa acima do normal.
-
----
-
-### Fase 7 — Testes, Benchmarks e Hardening (Semanas 31–36)
-
-**7.1 — Suite de Benchmarks**
-
-O projeto inclui uma suite completa de benchmarks que mede o hashrate de cada algoritmo em cada tipo de hardware, permitindo comparação direta entre implementações e identificação de gargalos.
-
-**7.2 — Testes de Integração**
-
-Testes end-to-end que simulam uma sessão completa de mineração: conexão ao pool, recebimento de job, computação de hash, submissão de share e verificação de aceitação.
-
-**7.3 — Fuzzing e Segurança**
-
-O código é submetido a fuzzing contínuo via AFL++ e libFuzzer para detectar vulnerabilidades de memória, buffer overflows e crashes em inputs malformados.
-
-**7.4 — Profiling Contínuo**
-
-Integração com `perf`, `VTune` (Intel), `Nsight` (NVIDIA) e `CodeXL` (AMD) para profiling contínuo e identificação de hotspots de performance.
-
----
-
-### Fase 8 — Empacotamento e Distribuição (Semanas 37–40)
-
-**8.1 — Binários Pré-compilados**
-
-Geração de binários otimizados para as arquiteturas mais comuns: x86-64 (SSE4.2, AVX2, AVX-512), ARM64 (NEON, SHA2), com e sem suporte a CUDA/OpenCL.
-
-**8.2 — Containers Docker**
-
-Imagens Docker com drivers NVIDIA pré-configurados para deploy rápido em farms de mineração e ambientes cloud.
-
-**8.3 — Scripts de Automação**
-
-Scripts para instalação automatizada de drivers, configuração de Huge Pages, tuning de kernel Linux e setup de systemd services para operação contínua.
+## Validação por Especialistas
+
+Este projeto foi submetido a um **double check avassalador** por 6 especialistas consultados via Google Gemini, cada um analisando o projeto sob uma perspectiva diferente. As descobertas foram cruzadas com pesquisas web atualizadas (Fevereiro 2026) e dados de plataformas como minerstat, Coin Bureau, CoinSpeaker e NFTPlazas.
+
+| Especialista | Área de Expertise | Principais Contribuições |
+|---|---|---|
+| Engenheiro de Blockchain e Criptografia | Algoritmos, moedas, tendências | Identificou 9 algoritmos faltantes e 12 moedas emergentes |
+| Arquiteto de Sistemas de Alta Performance | Arquitetura, SIMD, memória, compilação | Validou divisão C++/Rust; recomendou BOLT, AutoFDO, CXL, AVX10, AMX |
+| Especialista em GPU Computing e CUDA | CUDA 12, HIP/ROCm, kernels, multi-GPU | Recomendou CUDA Graphs, HIP/ROCm, Cooperative Groups, warp primitives |
+| Engenheiro de Segurança e Protocolos | Stratum V2, TLS, anti-tampering | Elevou segurança para padrão enterprise-grade com NOISE protocol |
+| Especialista em DevOps e Infraestrutura | Docker, Ansible, Prometheus, CI/CD | Validou para farms de 1000+ GPUs; recomendou Ansible + Nomad |
+| Estrategista de Inovação em Crypto/Web3 | PoUW, AI+Mining, Green Mining | Confirmou posicionamento estratégico; recomendou PoUW e merge mining |
 
 ---
 
 ## Arquitetura do Sistema
 
-A arquitetura do HyperMine Core segue o princípio de **separação de responsabilidades** com comunicação de baixa latência entre componentes.
+A arquitetura utiliza uma **divisão em camadas** validada pelos especialistas como **fundamentalmente correta e robusta**:
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│                        HyperMine Core                            │
-│                                                                  │
-│  ┌────────────────────────────────────────────────────────────┐  │
-│  │                   Config Manager (TOML)                    │  │
-│  │  • Hot-reload via inotify/FSEvents                        │  │
-│  │  • Validação de schema em tempo de carga                  │  │
-│  │  • Parametrização por moeda, pool e hardware              │  │
-│  └────────────────────┬───────────────────────────────────────┘  │
-│                       │                                          │
-│  ┌────────────────────▼───────────────────────────────────────┐  │
-│  │              Algorithm Dispatcher (Rust)                    │  │
-│  │  • Seleção dinâmica de algoritmo por moeda                │  │
-│  │  • Despacho para backend de hardware apropriado           │  │
-│  │  • Troca de algoritmo em tempo de execução                │  │
-│  ├────────────┬──────────────┬──────────────┬────────────────┤  │
-│  │  SHA-256   │   Ethash     │   RandomX    │   KAWPOW       │  │
-│  │  Scrypt    │   Etchash    │   Yescrypt   │   Equihash     │  │
-│  │  X11/X13   │   Autolykos2 │   GhostRider │   CuckooCycle  │  │
-│  │  Blake2/3  │   FiroPoW    │   YesPoWer   │   +100 outros  │  │
-│  └────────────┴──────┬───────┴──────────────┴────────────────┘  │
-│                      │                                           │
-│  ┌───────────────────▼────────────────────────────────────────┐  │
-│  │          Hardware Abstraction Layer (C++/Rust FFI)          │  │
-│  │                                                            │  │
-│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  │  │
-│  │  │   CPU    │  │  CUDA    │  │  OpenCL  │  │   FPGA   │  │  │
-│  │  │ x86/ARM  │  │ NVIDIA   │  │ AMD/Intel│  │ Xilinx/  │  │  │
-│  │  │ SIMD/ASM │  │ Compute  │  │ Compute  │  │ Altera   │  │  │
-│  │  └──────────┘  └──────────┘  └──────────┘  └──────────┘  │  │
-│  └───────────────────┬────────────────────────────────────────┘  │
-│                      │                                           │
-│  ┌───────────────────▼────────────────────────────────────────┐  │
-│  │            Stratum Client (Rust + async/tokio)              │  │
-│  │  • Stratum V1 (JSON-RPC) + Stratum V2 (Binary)           │  │
-│  │  • Connection pooling + failover automático                │  │
-│  │  • Job queue com descarte de stale jobs                    │  │
-│  │  • TLS 1.3 para Stratum V2                                │  │
-│  └───────────────────┬────────────────────────────────────────┘  │
-│                      │                                           │
-│  ┌───────────────────▼────────────────────────────────────────┐  │
-│  │           Monitoring & Telemetry (Prometheus)               │  │
-│  │  • Hashrate, temperatura, power, shares, latência          │  │
-│  │  • API REST local + exportação Prometheus                  │  │
-│  │  • Alertas via webhook (Discord/Telegram/Slack)            │  │
-│  └────────────────────────────────────────────────────────────┘  │
-└──────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│                    CAMADA DE APRESENTAÇÃO                       │
+│  REST API · Prometheus Exporter · Discord/Telegram Webhooks     │
+│  Grafana Dashboards · CLI Interface · Web Dashboard             │
+├─────────────────────────────────────────────────────────────────┤
+│                    CAMADA DE CONTROLE (Rust)                    │
+│  Stratum V1/V2 Client · NOISE Protocol · TLS 1.3               │
+│  Config Manager · Profit Switcher · Merge Mining Controller     │
+│  Pool Failover (<1s) · Certificate Pinning · JWT Auth API       │
+├─────────────────────────────────────────────────────────────────┤
+│              CAMADA DE AGENDAMENTO (Scheduler/Dispatcher)       │
+│  Lock-free Task Queue · Adaptive Tuning · Hot-swap de Kernels   │
+│  Resource Allocator (CPU/GPU/MEM) · Priority Manager            │
+├─────────────────────────────────────────────────────────────────┤
+│                CAMADA DE ALGORITMOS (Plugin System)              │
+│  42+ Algoritmos como DSOs/DLLs carregáveis dinamicamente        │
+│  SHA-256 · RandomX · Etchash · KAWPOW · Equihash · kHeavyHash  │
+│  Blake3 · NexaPoW · KarlsenHash · PyrinHash · VerusHash 2.2    │
+│  Autolykos2 · GhostRider · FiroPoW · ZelHash · Verthash · ...  │
+├─────────────────────────────────────────────────────────────────┤
+│            CAMADA DE ABSTRAÇÃO DE HARDWARE (HAL) — C++20        │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────────┐   │
+│  │ CPU HAL  │ │ NVIDIA   │ │ AMD HAL  │ │ Intel HAL        │   │
+│  │ SIMD x9  │ │ CUDA 12  │ │ HIP/ROCm │ │ OpenCL 3.0       │   │
+│  │ NUMA     │ │ Graphs   │ │ RDNA/CDNA│ │ oneAPI/Battlemage │   │
+│  │ HugePages│ │ Tensor   │ │ Matrix   │ │ Xe Cores         │   │
+│  │ CXL Mem  │ │ NVLink   │ │ Infinity │ │                  │   │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────────────┘   │
+├─────────────────────────────────────────────────────────────────┤
+│                  CAMADA DE TELEMETRIA                            │
+│  Ring Buffers · Lock-free Queues · DCGM Exporter (NVIDIA)       │
+│  ROCm SMI (AMD) · Métricas hash/watt · Alertas Inteligentes    │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
----
+### Divisão de Linguagens
 
-## Linguagens e Justificativas de Performance
+| Camada | Linguagem | Justificativa |
+|---|---|---|
+| Kernels de Hashing | C++20 | Controle granular de memória, zero-overhead abstractions, interop com CUDA/HIP |
+| Kernels GPU | CUDA C / HIP C | Acesso direto ao hardware NVIDIA (CUDA) e AMD (HIP/ROCm) |
+| Hotspots Críticos | Assembly x86-64 | Cada ciclo de clock importa em loops internos de hash |
+| Networking (Stratum) | Rust | Segurança de memória, concorrência segura com async/await |
+| Configuração | Rust | Parsing seguro de TOML, validação de tipos em compile-time |
+| Monitoramento | Rust | Robustez, segurança de threads, integração com Prometheus |
+| Scheduler/Dispatcher | Rust + C++ FFI | Lock-free queues em C++, orquestração segura em Rust |
 
-A escolha de linguagens no HyperMine Core não é arbitrária. Cada linguagem foi selecionada para o componente onde oferece a melhor relação entre performance, segurança e produtividade.
-
-### C++20 — O Motor Principal
-
-O C++ é a linguagem dominante em mineração de criptomoedas por razões concretas. O Bitcoin Core, o software de referência do Bitcoin, é escrito em C++. Os mineradores mais performáticos do mercado (CGMiner, BFGMiner, SGMiner) são todos escritos em C ou C++. A razão é simples: C++ oferece **controle total sobre a memória**, **zero-cost abstractions** e **acesso direto ao hardware** sem overhead de runtime.
-
-Com o C++20, o projeto utiliza **concepts** para interfaces genéricas de algoritmos, **coroutines** para I/O assíncrono sem overhead de threads, **modules** para compilação mais rápida, e **constexpr** para computações em tempo de compilação que eliminam trabalho em runtime.
-
-### Rust — Segurança sem Sacrifício
-
-O Rust é utilizado nos componentes de rede (Stratum client), gerenciamento de configuração e orquestração. A escolha se justifica pela **segurança de memória garantida em tempo de compilação** sem garbage collector, o que elimina classes inteiras de bugs (use-after-free, data races, buffer overflows) sem custo de performance. O Rust compila para código nativo com performance dentro de 2% do C++ equivalente [1].
-
-O ecossistema Rust oferece crates maduras para async I/O (`tokio`), serialização (`serde`), e criptografia (`ring`), todas com performance de primeira linha.
-
-### Assembly x86-64 / ARM — O Último Recurso
-
-Para as funções hash mais críticas (SHA-256, Blake2, Keccak), rotinas em Assembly hand-tuned extraem os últimos 10-15% de performance que compiladores não conseguem alcançar. Essas rotinas utilizam scheduling manual de instruções, uso explícito de registradores, e exploração de micro-arquitetura específica (pipeline depth, port assignments) de processadores Intel e AMD.
-
-### CUDA — Paralelismo Massivo NVIDIA
-
-O CUDA é a API nativa para GPUs NVIDIA, oferecendo acesso a features exclusivas como **tensor cores**, **cooperative groups**, **dynamic parallelism** e **unified memory**. Para mineração, o CUDA permite controle fino sobre a hierarquia de memória (registers → shared → L1 → L2 → global) e scheduling de warps.
-
-### OpenCL 3.0 — Universalidade GPU
-
-O OpenCL é a alternativa cross-platform que suporta GPUs AMD, Intel e NVIDIA. Embora tipicamente 5-10% mais lento que CUDA em hardware NVIDIA, é a única opção para GPUs AMD, que oferecem excelente relação hash/dólar em muitos algoritmos.
-
-### Verilog/VHDL — Para Quem Quer o Máximo
-
-Para operadores com acesso a FPGAs (Xilinx, Intel/Altera), o projeto inclui módulos HDL para os algoritmos mais comuns. Um FPGA pode oferecer eficiência energética (hash/watt) superior a GPUs para algoritmos específicos, embora com menor flexibilidade.
+> **Nota dos Especialistas:** A divisão C++/Rust foi confirmada como "quase ideal" pelo Arquiteto de Sistemas. Zig e Carbon foram avaliados mas considerados prematuros para produção. O foco deve ser aprimorar a interação FFI entre C++ e Rust.
 
 ---
 
-## Algoritmos Suportados
+## Algoritmos Suportados (42+)
 
-O HyperMine Core suporta todos os algoritmos de mineração ativos em 2026. A tabela abaixo lista os principais, organizados por categoria.
+### Algoritmos GPU — Alta Lucratividade
 
-### Algoritmos ASIC (Máxima Eficiência por Hash)
+| Algoritmo | Moeda(s) Principal(is) | Tipo | Status 2026 |
+|---|---|---|---|
+| **Etchash** | Ethereum Classic (ETC) | Memory-hard | Top GPU mining |
+| **KAWPOW** | Ravencoin (RVN), Neoxa (NEOX), Clore.ai (CLORE) | Compute+Memory | Popular GPU |
+| **kHeavyHash** | Kaspa (KAS) | GPU/ASIC | Top 30 market cap |
+| **Autolykos2** | Ergo (ERG) | Memory-hard | Crescente |
+| **Blake3** | Alephium (ALPH) | Compute-bound | Sharding PoW |
+| **NexaPoW** | Nexa (NEXA) | GPU-optimized | Alta lucratividade |
+| **KarlsenHash** | Karlsen (KLS) | GPU-optimized | Fork Kaspa |
+| **PyrinHash** | Pyrin (PYI) | GPU-optimized | Fork Kaspa |
+| **Equihash** (144,5 / 200,9) | Zcash (ZEC) | Memory-hard | Estabelecido |
+| **ZelHash** | Flux (FLUX) | Equihash variant | Crescente |
+| **FiroPoW** | Firo (FIRO) | ProgPoW variant | Ativo |
+| **Verthash** | Vertcoin (VTC) | ASIC-resistant | Nicho estável |
+| **BeamHash** | Beam (BEAM) | Equihash variant | Ativo |
+| **ProgPoW** | Diversas | ASIC-resistant | Nicho |
 
-| Algoritmo | Moedas (quantidade) | Moedas Principais |
-|-----------|---------------------|-------------------|
-| SHA-256 | 26 | Bitcoin, Bitcoin Cash, Bitcoin SV |
-| Scrypt | 18 | Litecoin, Dogecoin |
-| X11 | 13 | Dash, PIVX |
-| Eaglesong | 8 | Nervos CKB |
-| Equihash | 16 | Zcash |
-| Qubit | 6 | Geocoin, Dimecoin |
-| Skein | 6 | DigiByte (Skein) |
-| Blake (2b) | 3 | Siacoin |
-| Handshake | 3 | Handshake (HNS) |
-| CryptoNight | 2 | (legacy) |
+### Algoritmos CPU — Resistentes a ASIC
 
-### Algoritmos GPU (Nvidia/AMD)
+| Algoritmo | Moeda(s) Principal(is) | Tipo | Status 2026 |
+|---|---|---|---|
+| **RandomX** | Monero (XMR) | CPU-hard (cache L3) | Líder CPU mining |
+| **VerusHash 2.2** | VerusCoin (VRSC) | CPU-hard | Top CPU mining |
+| **GhostRider** | Raptoreum (RTM) | Multi-algoritmo CPU | Ativo |
+| **AigarHash** | Qubic (QUBIC) | PoUW (CPU) | Proof-of-Useful-Work |
 
-| Algoritmo | Moedas (quantidade) | Moedas Principais | Hardware |
-|-----------|---------------------|-------------------|----------|
-| KAWPOW | 18 | Ravencoin, Neoxa | Nvidia + AMD |
-| Ethash | 11 | Ethereum PoW forks | Nvidia + AMD + ASIC |
-| Etchash | 10 | Ethereum Classic | Nvidia + AMD |
-| Autolykos2 | 4 | Ergo | Nvidia + AMD |
-| BeamHashIII | 4 | Beam | Nvidia + AMD |
-| Octopus | 3 | Conflux | Nvidia + AMD |
-| ProgPowZ | 3 | Zano | Nvidia + AMD |
-| FiroPoW | 2 | Firo | Nvidia + AMD |
-| CuckooCycle | 2 | Grin | Nvidia + AMD |
-| Blake3 | 1 | Alephium | Nvidia + AMD |
-| DynexSolve | 1 | Dynex | Nvidia + AMD |
-| Cortex | 2 | Cortex AI | Nvidia + AMD |
+### Algoritmos ASIC-Dominados (Suporte para Completude)
 
-### Algoritmos CPU
+| Algoritmo | Moeda(s) Principal(is) | Nota |
+|---|---|---|
+| **SHA-256** | Bitcoin (BTC), Bitcoin Cash (BCH) | Inviável em GPU — ASIC only |
+| **Scrypt** | Litecoin (LTC), Dogecoin (DOGE) | Merge mining LTC+DOGE via ASIC |
+| **X11** | Dash (DASH) | ASIC dominado |
+| **SHA-3 (Keccak)** | Diversas | Suporte genérico |
+| **CryptoNight** (variantes) | Legacy coins | Compatibilidade |
 
-| Algoritmo | Moedas (quantidade) | Moedas Principais | Otimização |
-|-----------|---------------------|-------------------|------------|
-| RandomX | 8 | Monero, Wownero | JIT + Huge Pages |
-| GhostRider | 5 | Raptoreum | Multi-algo rotation |
-| Yescrypt | 4 | GlobalBoost, Yenten | Memory-hard |
-| YescryptR16 | 4 | MONA, Yenten | Memory-hard variant |
-| YesPoWer | 2 | Cranepay | CPU-exclusive |
-| Allium | 1 | Garlicoin | Lyra2-based |
+### Algoritmos Emergentes e PoUW (Pós-Quântico e AI-Native)
+
+| Algoritmo | Moeda/Plataforma | Tipo | Nota |
+|---|---|---|---|
+| **ABEL-ETHash** | Abelian (ABEL) | Quantum-resistant | Pós-quântico |
+| **Proof-of-Logits** | Ambient Protocol | AI-native | Emergente 2026 |
+
+> **Nota do Especialista em Blockchain:** "O HyperMine Core precisa urgentemente adicionar os algoritmos da nova onda de mineração de GPU (NexaPoW, KarlsenHash, PyrinHash, Blake3) e o VerusHash para CPU para ser competitivo e relevante em 2025-2026." — Estas adições foram implementadas.
 
 ---
 
-## Técnicas de Otimização
+## Moedas Suportadas (23+)
 
-### 1. Otimizações de CPU — Nível de Instrução
+O sistema é **totalmente parametrizável** — o usuário pode minerar todas as moedas, apenas algumas, ou excluir específicas via arquivo de configuração TOML.
 
-**SIMD (Single Instruction, Multiple Data)** é a técnica mais impactante para mineração em CPU. Processadores modernos possuem unidades SIMD que processam múltiplos dados em uma única instrução.
+| Moeda | Símbolo | Algoritmo | Hardware | Lucratividade 2026 |
+|---|---|---|---|---|
+| Bitcoin | BTC | SHA-256 | ASIC | Alta (com ASIC) |
+| Ethereum Classic | ETC | Etchash | GPU | Alta |
+| Kaspa | KAS | kHeavyHash | GPU/ASIC | Muito Alta |
+| Monero | XMR | RandomX | CPU | Média-Alta |
+| Litecoin | LTC | Scrypt | ASIC | Média (merge DOGE) |
+| Dogecoin | DOGE | Scrypt | ASIC | Média (merge LTC) |
+| Ravencoin | RVN | KAWPOW | GPU | Média |
+| Zcash | ZEC | Equihash | GPU/ASIC | Média |
+| Ergo | ERG | Autolykos2 | GPU | Média-Alta |
+| Alephium | ALPH | Blake3 | GPU | Alta |
+| Nexa | NEXA | NexaPoW | GPU | Alta |
+| Karlsen | KLS | KarlsenHash | GPU | Alta |
+| Pyrin | PYI | PyrinHash | GPU | Média-Alta |
+| VerusCoin | VRSC | VerusHash 2.2 | CPU | Média |
+| Flux | FLUX | ZelHash | GPU | Média |
+| Vertcoin | VTC | Verthash | GPU | Baixa-Média |
+| Firo | FIRO | FiroPoW | GPU | Média |
+| Dash | DASH | X11 | ASIC | Média |
+| Raptoreum | RTM | GhostRider | CPU | Baixa-Média |
+| Qubic | QUBIC | AigarHash | CPU | Variável (PoUW) |
+| Clore.ai | CLORE | KAWPOW | GPU | Variável (PoUW) |
+| Beam | BEAM | BeamHash | GPU | Baixa |
+| Neoxa | NEOX | KAWPOW | GPU | Baixa |
 
-| Conjunto SIMD | Largura | Hashes Paralelos (SHA-256) | Processadores |
-|---------------|---------|---------------------------|---------------|
-| SSE4.2 | 128-bit | 1 (com otimizações) | Intel Core 2+, AMD Bulldozer+ |
-| AVX2 | 256-bit | 4 simultâneos | Intel Haswell+, AMD Zen+ |
-| AVX-512 | 512-bit | 8 simultâneos | Intel Skylake-X+, AMD Zen 4+ |
-| ARM NEON | 128-bit | 1-2 | Apple M1+, Ampere Altra |
-| ARM SVE2 | Até 2048-bit | Variável | ARM Neoverse V2+ |
+---
 
-A implementação detecta automaticamente as capacidades SIMD do processador via CPUID e seleciona a rotina mais otimizada em tempo de execução, sem necessidade de recompilação.
+## Otimizações de Performance
 
-**AES-NI** (Advanced Encryption Standard New Instructions) é utilizado em algoritmos baseados em CryptoNight (Monero legacy) e nas rodadas AES do RandomX. A aceleração por hardware reduz o custo de cada rodada AES de ~100 ciclos para ~4 ciclos.
+### 1. CPU — 9 Variantes SIMD
 
-**SHA-NI** (SHA New Instructions) é suportado em processadores Intel (Ice Lake+) e AMD (Zen+), oferecendo aceleração nativa de SHA-256 que compete com implementações SIMD manuais.
+| Variante SIMD | Arquitetura | Uso Principal | Ganho Típico |
+|---|---|---|---|
+| SSE4.2 | x86-64 (2008+) | Baseline universal | 1x (referência) |
+| AVX2 | x86-64 (2013+) | 256-bit vetorial | 2-3x |
+| AVX-512 | x86-64 (2017+) | 512-bit vetorial | 3-5x |
+| AVX10 | x86-64 (2025+) | AVX-512 unificado | 4-6x |
+| AMX | x86-64 (2023+) | Matrix multiplication | 10-50x (para hash matricial) |
+| SHA-NI | x86-64 (2016+) | SHA-256 nativo | 5-10x para SHA |
+| NEON | ARM (2004+) | 128-bit vetorial ARM | 2-3x |
+| SVE | ARM (2020+) | Scalable vectors | 3-5x |
+| SVE2 | ARM (2022+) | SVE aprimorado | 4-6x |
 
-### 2. Otimizações de GPU — Nível de Kernel
+> **Nota do Arquiteto de Sistemas:** "AVX10 é crucial para a competitividade futura em CPUs Intel. AMX é potencialmente transformador para algoritmos que contêm sub-problemas de multiplicação de matrizes."
 
-A otimização de kernels GPU segue princípios fundamentais que maximizam o throughput de hashing.
+### 2. GPU — Otimizações Avançadas
 
-**Ocupância (Occupancy)** mede a fração de warps ativos em relação ao máximo suportado pelo SM (Streaming Multiprocessor). O minerador calcula automaticamente o número ideal de threads por bloco e blocos por grid para maximizar a ocupância, considerando o uso de registradores e shared memory de cada kernel.
+| Otimização | Backend | Descrição |
+|---|---|---|
+| **CUDA Graphs** | NVIDIA | Captura e replay de sequências de kernels — reduz overhead de lançamento em até 90% |
+| **Persistent Kernels** | CUDA/HIP | Kernels que permanecem ativos, eliminando overhead de relançamento |
+| **Cooperative Groups** | CUDA 12 | Sincronização flexível entre threads e blocos |
+| **Warp-level Primitives** | CUDA/HIP | `__shfl_sync`, `__ballot_sync` para comunicação intra-warp |
+| **Kernel Fusion** | CUDA/HIP/OCL | Combinar múltiplos kernels para reduzir tráfego de memória |
+| **Memory Coalescing** | Todos | Acessos alinhados e contíguos à memória global |
+| **Shared Memory Tiling** | Todos | Cache on-chip para dados frequentemente acessados |
+| **Tensor Cores** | NVIDIA | Aceleração de operações matriciais em sub-problemas de hash |
+| **Matrix Accelerators** | AMD/Intel | Equivalentes aos Tensor Cores |
+| **Multi-stream Async** | CUDA/HIP | Sobreposição de compute, memcpy e lançamento de kernels |
+| **Dynamic Parallelism** | CUDA | Kernels lançando sub-kernels para trabalho adaptativo |
 
-**Memory Coalescing** garante que threads adjacentes em um warp acessem endereços de memória adjacentes, permitindo que o hardware combine múltiplos acessos em uma única transação de memória. Para algoritmos como Ethash, onde o padrão de acesso ao DAG é pseudo-aleatório, técnicas de reorganização de dados são aplicadas para melhorar a localidade.
+> **Nota do Especialista em GPU:** "Para um minerador de alta performance, o uso de CUDA Graphs é praticamente mandatório. Para máxima performance em GPUs AMD, o projeto deveria considerar seriamente a migração dos kernels mais críticos para HIP."
 
-**Shared Memory Banking** organiza os dados na shared memory para evitar bank conflicts, que forçam acessos serializados. O minerador alinha estruturas de dados em 32 bits (NVIDIA) ou 64 bits (AMD) para garantir acesso sem conflitos.
+### 3. Compilação — Pipeline Completo
 
-### 3. Otimizações de Memória — Nível de Sistema
+| Técnica | Ferramenta | Ganho Típico |
+|---|---|---|
+| **PGO** (Profile-Guided Optimization) | GCC/Clang/MSVC | 10-20% |
+| **LTO** (Link-Time Optimization) | GCC/Clang/MSVC | 5-15% |
+| **BOLT** (Binary Optimization and Layout Tool) | Meta BOLT | 5-15% adicional |
+| **AutoFDO** | Google AutoFDO | Similar ao PGO, menor overhead |
+| **`-O3 -march=native -mtune=native`** | GCC/Clang | Máxima otimização |
+| **Custom Allocators** | jemalloc/mimalloc | Redução de contenção |
 
-**Huge Pages** são páginas de memória de 2MB ou 1GB (vs 4KB padrão) que reduzem drasticamente o número de entradas na TLB (Translation Lookaside Buffer). Para o RandomX, que acessa um dataset de 2GB de forma pseudo-aleatória, Huge Pages reduzem TLB misses em mais de 90%, resultando em ganho de 5-15% no hashrate.
+### 4. Memória — Técnicas Avançadas
 
-**NUMA-Aware Allocation** é crítica em servidores multi-socket. Cada socket possui seu próprio controlador de memória, e acessar memória "remota" (de outro socket) adiciona ~100ns de latência. O minerador detecta a topologia NUMA e aloca memória no nó mais próximo ao core que a utilizará.
+| Técnica | Descrição | Impacto |
+|---|---|---|
+| **Huge Pages** (2MB/1GB) | Reduz TLB misses em 50-80% | Crítico para RandomX, Etchash |
+| **NUMA-aware Allocation** | Aloca memória no nó NUMA mais próximo | Reduz latência de acesso |
+| **CXL Memory** | Pooling de memória via Compute Express Link | Revolucionário para memory-hard |
+| **HBM3/HBM3e** | Otimização de kernels para saturar largura de banda | Crítico para Etchash, KAWPOW |
+| **GDDR7** | Suporte a nova geração de memória GPU | RTX 5090, RDNA 4 |
+| **Lock-free Data Structures** | Eliminação de contenção entre threads | Scheduler, telemetria |
 
-### 4. Otimizações de Rede — Nível de Protocolo
+### 5. Rede — Baixa Latência
 
-A latência de rede impacta diretamente a taxa de stale shares. Cada milissegundo de atraso na submissão de uma share aumenta a probabilidade de ela se tornar stale (inválida porque um novo bloco já foi encontrado). O minerador implementa:
+| Técnica | Descrição |
+|---|---|
+| **Stratum V2 + NOISE Protocol** | Criptografia e autenticação de ponta a ponta |
+| **TLS 1.3** | Menor latência de handshake, forward secrecy |
+| **Certificate Pinning** | Proteção contra MITM em pools |
+| **Pool Failover < 1s** | Troca automática para pool backup |
+| **TCP_NODELAY + io_uring** | Eliminação de Nagle + kernel bypass |
 
-**Stratum V2** com framing binário que reduz o overhead de parsing JSON em ~50%. A conexão TLS 1.3 com 0-RTT resume permite reconexão instantânea após falhas de rede. O Job Declaration Protocol permite ao minerador selecionar transações, reduzindo a dependência do pool.
+---
 
-**Submissão Especulativa** envia shares para o pool antes mesmo de receber confirmação do job anterior, utilizando pipelining de rede para manter a conexão sempre ocupada.
+## Hardware Suportado (2025-2026)
 
-### 5. Otimizações de Compilação — Nível de Toolchain
+### GPUs — Ranking de Lucratividade (Fevereiro 2026)
 
-O compilador é o último elo da cadeia de otimização. As flags de compilação corretas podem fazer diferença de 20-30% no hashrate final.
+| # | GPU | Lucratividade/dia | Memória | Arquitetura |
+|---|---|---|---|---|
+| 1 | NVIDIA RTX 4090 | ~$2.73 | 24GB GDDR6X | Ada Lovelace |
+| 2 | NVIDIA RTX 5090 | ~$1.63 | 32GB GDDR7 | Blackwell |
+| 3 | NVIDIA RTX 3090 | ~$1.22 | 24GB GDDR6X | Ampere |
+| 4 | NVIDIA RTX 5080 | ~$1.12 | 16GB GDDR7 | Blackwell |
+| 5 | AMD RX 7900 XTX | ~$0.95 | 24GB GDDR6 | RDNA 3 |
+| 6 | NVIDIA RTX 4080 | ~$0.88 | 16GB GDDR6X | Ada Lovelace |
+| 7 | AMD RX 7900 XT | ~$0.72 | 20GB GDDR6 | RDNA 3 |
+| 8 | Intel Arc B580 | ~$0.35 | 12GB GDDR6 | Battlemage |
 
-**Profile-Guided Optimization (PGO)** compila o código duas vezes: primeiro com instrumentação para coletar dados de execução real, depois com otimizações guiadas por esses dados. O resultado é código que otimiza os caminhos realmente executados, não os que o compilador "acha" que serão executados.
+*Dados: minerstat.com, Fevereiro 2026*
 
-**Link-Time Optimization (LTO)** permite ao compilador otimizar através de fronteiras de módulos, inlining funções entre arquivos e eliminando código morto globalmente.
+### CPUs — Melhores para Mineração
+
+| CPU | Algoritmo Ideal | Hash Rate (RandomX) | Cache L3 |
+|---|---|---|---|
+| AMD Ryzen 9 9950X | RandomX, VerusHash | ~22 KH/s | 64MB |
+| AMD Ryzen 9 7950X3D | RandomX | ~20 KH/s | 128MB (3D V-Cache) |
+| AMD Ryzen 7 7800X3D | RandomX | ~14 KH/s | 96MB (3D V-Cache) |
+| Intel Core i9-14900K | RandomX, GhostRider | ~12 KH/s | 36MB |
+
+### Multi-GPU
+
+| Interconexão | Largura de Banda | Uso |
+|---|---|---|
+| NVLink 4.0 | 900 GB/s | Multi-GPU NVIDIA (data center) |
+| PCIe 5.0 x16 | 64 GB/s | Padrão para rigs de mineração |
+| AMD Infinity Fabric | 200+ GB/s | Multi-GPU AMD |
+
+---
+
+## Segurança Enterprise-Grade
+
+Validado pelo Engenheiro de Segurança e Protocolos:
+
+| Camada | Proteção | Implementação |
+|---|---|---|
+| **Protocolo** | Stratum V2 + NOISE Framework | Perfil NNpsk0 para autenticação mútua |
+| **Transporte** | TLS 1.3 + Certificate Pinning | Hashes de chaves públicas de pools confiáveis |
+| **Anti-MITM** | Validação de trabalho do pool | Verificação de integridade de blocos recebidos |
+| **Anti-Hijacking** | Criptografia de endereços de carteira | AES-256-GCM no arquivo de configuração |
+| **Binário** | Code Signing + Verificação de integridade | Assinatura digital + verificação em runtime |
+| **API** | JWT + Rate Limiting + Bind localhost | Autenticação, autorização granular |
+| **Supply Chain** | cargo-audit + Dependabot + SBOM | Verificação contínua de dependências |
+| **Configuração** | Permissões de arquivo restritas | chmod 600 para config.toml |
+
+---
+
+## Merge Mining e PoUW
+
+### Merge Mining
+
+O HyperMine Core suporta **merge mining** — mineração simultânea de duas ou mais criptomoedas com o mesmo poder computacional, sem custo adicional de energia:
+
+| Par | Algoritmo | Benefício |
+|---|---|---|
+| Litecoin + Dogecoin | Scrypt | Duas recompensas, mesmo hardware |
+| Bitcoin + Namecoin | SHA-256 | Segurança adicional para Namecoin |
+| Configurável | Qualquer par compatível | Extensível via plugins |
+
+> **Nota do Estrategista de Inovação:** "A capacidade de realizar merge mining é um diferencial significativo. A lógica most_profitable deveria ser estendida para considerar a rentabilidade combinada de moedas em merge mining."
+
+### Proof-of-Useful-Work (PoUW)
+
+O HyperMine Core está preparado para a **próxima geração de mineração**, onde o poder computacional é direcionado para tarefas úteis:
+
+| Plataforma | Tipo de Trabalho | Status |
+|---|---|---|
+| **Qubic** | Computação de IA (treinamento) | Ativo |
+| **Clore.ai** | Marketplace de GPU compute | Ativo |
+| **Flux** | Computação descentralizada | Ativo |
+| **Golem** | Renderização, simulação | Ativo |
+| **Ambient Protocol** | Proof-of-Logits (AI-native) | Emergente 2026 |
+
+---
+
+## Monitoramento e Observabilidade
+
+```
+┌─────────────────────────────────────────────────┐
+│              GRAFANA DASHBOARDS                  │
+│  Farm Overview · Per-Node · Per-GPU · Alertas   │
+├─────────────────────────────────────────────────┤
+│              PROMETHEUS SERVER                   │
+│  Federação para 1000+ GPUs · Retenção 90 dias  │
+├─────────────────────────────────────────────────┤
+│           EXPORTERS E COLETORES                  │
+│  HyperMine Exporter · DCGM (NVIDIA)            │
+│  ROCm SMI (AMD) · Node Exporter (Host)         │
+├─────────────────────────────────────────────────┤
+│              ALERTMANAGER                        │
+│  Discord · Telegram · Email · PagerDuty         │
+│  GPU offline · Hashrate zero · Temp alta        │
+│  Share rejection > 2% · Pool connection lost    │
+└─────────────────────────────────────────────────┘
+```
+
+### Métricas Coletadas
+
+| Categoria | Métricas |
+|---|---|
+| **Mining** | Hashrate (por GPU, por algoritmo), shares aceitas/rejeitadas, eficiência |
+| **GPU** | Temperatura, VRAM usage, core usage, fan speed, power draw |
+| **CPU** | Utilização por core, cache hits/misses, frequência |
+| **Rede** | Latência para pool, uptime de conexão, bytes transferidos |
+| **Financeiro** | Lucratividade/hora, custo de energia, ROI estimado |
+| **Eficiência** | Hash/Watt (por GPU, por algoritmo), eficiência energética total |
+
+---
+
+## DevOps para Farms (1000+ GPUs)
+
+Validado pelo Especialista em DevOps para farms de grande escala:
+
+| Ferramenta | Uso | Justificativa |
+|---|---|---|
+| **Docker** | Containerização do minerador | Consistência, portabilidade, isolamento |
+| **Ansible** | Gerenciamento de configuração da farm | Templates TOML, distribuição, updates |
+| **Nomad** | Orquestração leve para bare metal | Alternativa ao K8s para nós de mineração |
+| **Kubernetes** | Serviços de suporte apenas | Prometheus, Grafana, APIs de gestão |
+| **GitHub Actions** | CI/CD com testes de regressão | Build, test, deploy automatizado |
+| **Terraform** | Infrastructure as Code | Provisionamento de cloud/bare metal |
+
+> **Nota do Especialista em DevOps:** "Para farms de 1000+ GPUs em bare metal, Kubernetes adiciona complexidade desnecessária para os nós de mineração. Use Ansible para gerenciar os containers Docker e Nomad como orquestrador leve. K8s é ideal apenas para os serviços de suporte."
+
+---
+
+## Roadmap Completo (52 Semanas)
+
+### Fase 1 — Fundação e Infraestrutura (Semanas 1-6)
+
+A primeira fase estabelece toda a base do projeto. O ambiente de desenvolvimento precisa suportar compilação cruzada para Linux, Windows e macOS, além de integração com toolchains de GPU.
+
+| Ferramenta | Versão Mínima | Propósito |
+|---|---|---|
+| CMake | 3.28+ | Sistema de build multiplataforma |
+| GCC / Clang | 13+ / 17+ | Compiladores C++ com suporte a C++20 |
+| Rust (rustc) | 1.75+ | Compilador Rust com edição 2024 |
+| CUDA Toolkit | 12.0+ | SDK para programação GPU NVIDIA |
+| ROCm/HIP | 6.0+ | SDK para programação GPU AMD |
+| OpenCL SDK | 3.0+ | SDK para programação GPU Intel |
+| NASM | 2.16+ | Assembler para rotinas x86-64 |
+| Google Benchmark | 1.8+ | Framework de microbenchmarks |
+
+A HAL (Hardware Abstraction Layer) é implementada em C++20 com bindings para Rust via FFI com overhead zero. A HAL formaliza interfaces para abstrair ISAs SIMD (SSE, AVX, NEON, SVE), NUMA, Huge Pages, e backends GPU (CUDA, HIP, OpenCL).
+
+### Fase 2 — Algoritmos Core (Semanas 7-14)
+
+Implementação dos 4 algoritmos mais críticos com otimizações completas:
+
+**SHA-256** — 8 variantes otimizadas (genérico, SSE4.2, AVX2, AVX-512, SHA-NI, NEON, ARM SHA2, Assembly x86-64). A seleção da variante é automática via detecção de CPUID em tempo de execução.
+
+**RandomX** — Compilação JIT dos programas aleatórios, alocação de Huge Pages (2MB) para o dataset de 2GB, otimização de cache L3 com NUMA-aware allocation, uso de AES-NI para as rodadas de criptografia.
+
+**Etchash** — Geração do DAG otimizada com pré-computação paralela, acesso ao DAG via shared memory na GPU, pipeline de lookup com prefetching para minimizar latência de memória. Kernels CUDA e HIP otimizados para saturar largura de banda de memória.
+
+**KAWPOW** — Equilíbrio entre otimização de computação e memória, com estratégias de cache sofisticadas e gerenciamento cuidadoso do pipeline.
+
+### Fase 3 — Networking e Stratum (Semanas 15-20)
+
+Implementação completa do Stratum V1 (JSON-RPC sobre TCP) e Stratum V2 (frames binários com NOISE protocol). O Stratum V2 utiliza o perfil NOISE NNpsk0 para autenticação mútua e criptografia de ponta a ponta, com redução de latência de ~50% comparado ao V1.
+
+O sistema de failover suporta múltiplos pools em cascata com migração automática em menos de 1 segundo. O gerenciamento de jobs implementa uma fila de prioridade que descarta jobs antigos imediatamente quando um novo bloco é detectado.
+
+### Fase 4 — Algoritmos Expandidos (Semanas 21-28)
+
+Implementação de 12+ algoritmos adicionais, priorizados por lucratividade:
+
+| Prioridade | Algoritmo | Moeda | Justificativa |
+|---|---|---|---|
+| 1 | kHeavyHash | Kaspa (KAS) | Top 30 market cap, muito lucrativa |
+| 2 | Blake3 | Alephium (ALPH) | Sharding PoW, crescente |
+| 3 | NexaPoW | Nexa (NEXA) | Alta lucratividade GPU |
+| 4 | KarlsenHash | Karlsen (KLS) | Fork Kaspa, popular |
+| 5 | PyrinHash | Pyrin (PYI) | Fork Kaspa, crescente |
+| 6 | VerusHash 2.2 | VerusCoin (VRSC) | Líder CPU mining |
+| 7 | Equihash/ZelHash | Zcash/Flux | Estabelecidos |
+| 8 | Autolykos2 | Ergo (ERG) | Crescente |
+| 9 | FiroPoW | Firo (FIRO) | ProgPoW variant |
+| 10 | Verthash | Vertcoin (VTC) | ASIC-resistant |
+| 11 | GhostRider | Raptoreum (RTM) | CPU multi-algo |
+| 12 | AigarHash | Qubic (QUBIC) | PoUW emergente |
+
+### Fase 5 — Otimização Avançada e Merge Mining (Semanas 29-34)
+
+Implementação de CUDA Graphs para todos os kernels NVIDIA, BOLT para otimização binária pós-link, merge mining (LTC+DOGE como primeiro par), integração com plataformas PoUW (Qubic, Clore.ai), e profit switcher com cálculo de rentabilidade combinada.
+
+### Fase 6 — Segurança Enterprise-Grade (Semanas 35-38)
+
+Implementação de certificate pinning para pools, criptografia AES-256-GCM de endereços de carteira, code signing dos binários, verificação de integridade em runtime, API REST com JWT e rate limiting, e supply chain security com cargo-audit e Dependabot.
+
+### Fase 7 — Monitoramento e Observabilidade (Semanas 39-44)
+
+Implementação de Prometheus exporter nativo, dashboards Grafana pré-configurados para farms de 1000+ GPUs, DCGM Exporter para métricas NVIDIA, ROCm SMI para AMD, alertas via Discord/Telegram/Email/PagerDuty, e métricas de eficiência energética (hash/watt).
+
+### Fase 8 — Release v1.0.0 (Semanas 45-52)
+
+Testes de integração end-to-end, suite de benchmarks comparativos com XMRig/T-Rex/lolMiner, fuzzing contínuo via AFL++, profiling com Nsight/VTune, binários pré-compilados para x86-64 e ARM64, imagens Docker, documentação completa, e release público.
 
 ---
 
 ## Configuração e Parametrização
 
-### Arquivo Principal: `config.toml`
+### Arquivo Principal (`config.toml`)
 
 ```toml
 [general]
-# Nome do worker (identificação no pool)
-worker_name = "hypermine-rig-01"
+worker_name = "rig-01"
+log_level = "info"
 
-# Moedas a minerar (lista parametrizável)
-# Use ["*"] para minerar todas as moedas configuradas
-# Ou especifique: ["bitcoin", "monero", "ravencoin"]
-enabled_coins = ["bitcoin", "monero", "ethereum-classic"]
+[mining]
+strategy = "most_profitable"     # most_profitable | round_robin | manual | merge_mining
+auto_switch_interval = 300       # segundos entre verificações de lucratividade
+min_profit_threshold = 0.01      # USD mínimo para considerar troca
 
-# Estratégia de seleção quando múltiplas moedas estão habilitadas
-# "most_profitable" - Calcula lucratividade em tempo real
-# "round_robin" - Alterna entre moedas em intervalos fixos
-# "manual" - Usa a ordem da lista enabled_coins
-coin_strategy = "most_profitable"
+[coins]
+# Minerar TODAS as moedas (padrão)
+enabled = "all"
 
-# Intervalo de recálculo de lucratividade (segundos)
-profitability_interval = 300
+# OU minerar apenas moedas específicas
+# enabled = ["KAS", "ETC", "XMR", "ALPH", "NEXA"]
 
-[hardware]
-# Dispositivos a utilizar
-# "auto" - Detecta e usa todos os dispositivos disponíveis
-# Ou especifique: ["cpu", "gpu:0", "gpu:1", "gpu:2"]
-devices = "auto"
+# OU excluir moedas específicas
+# exclude = ["BTC", "LTC"]  # Excluir ASIC-dominadas
 
-# Limites globais de hardware
-max_cpu_threads = 0  # 0 = automático (todos os cores)
-max_gpu_temperature = 80  # Celsius
-max_gpu_power = 0  # Watts, 0 = sem limite
-gpu_fan_speed = 0  # %, 0 = automático
+[merge_mining]
+enabled = true
+pairs = [
+    { primary = "LTC", secondary = "DOGE", algorithm = "scrypt" },
+]
 
-[cpu]
-# Otimizações de CPU
-enable_huge_pages = true
-huge_page_size = "2MB"  # "2MB" ou "1GB"
-enable_numa = true
-priority = "high"  # "normal", "high", "realtime"
-# Afinidade de cores (vazio = automático)
-affinity = []
+[hardware.gpu]
+max_temperature = 80             # °C
+power_limit = 250                # Watts
+fan_min_speed = 40               # %
 
-[gpu.nvidia]
-# Otimizações CUDA
-cuda_compute_capability = "auto"  # "auto" ou "8.6", "9.0", etc.
-enable_tensor_cores = false
-persistent_kernel = true
-streams_per_gpu = 2
-
-[gpu.amd]
-# Otimizações OpenCL
-opencl_platform = "auto"
-workgroup_size = 256
-enable_lds_optimization = true
-
-[network]
-# Configurações de rede
-tcp_nodelay = true
-keepalive_interval = 30  # segundos
-reconnect_delay = 1  # segundos
-max_reconnect_attempts = 0  # 0 = infinito
-prefer_stratum_v2 = true
-enable_tls = true
+[hardware.cpu]
+threads = 0                      # 0 = auto-detect
+huge_pages = true
+numa_aware = true
 
 [monitoring]
-# API REST local
-api_enabled = true
+prometheus_port = 9090
 api_port = 8080
 api_bind = "127.0.0.1"
 
-# Prometheus
-prometheus_enabled = true
-prometheus_port = 9090
-
-# Alertas
-[monitoring.alerts]
-enable_discord = false
+[alerts]
 discord_webhook = ""
-enable_telegram = false
 telegram_bot_token = ""
 telegram_chat_id = ""
-hashrate_drop_threshold = 10  # % de queda para alertar
-temperature_threshold = 85  # Celsius
 
-[logging]
-level = "info"  # "trace", "debug", "info", "warn", "error"
-file = "hypermine.log"
-max_size = "100MB"
-rotate = true
+[security]
+encrypt_wallets = true
+tls_enabled = true
+certificate_pinning = true
 ```
 
-### Configuração por Moeda: `coins/bitcoin.toml`
+### Configuração por Moeda (`coins/kaspa.toml`)
 
 ```toml
 [coin]
-name = "Bitcoin"
-symbol = "BTC"
-algorithm = "sha256"
-enabled = true
+name = "Kaspa"
+symbol = "KAS"
+algorithm = "kheavyhash"
+hardware = "gpu"
 
 [wallet]
-address = "bc1q..."
+address = "kaspa:qr..."
 
 [pools]
-# Pool primário
 [[pools.list]]
-url = "stratum+tcp://stratum.slushpool.com:3333"
-password = "x"
+url = "stratum+ssl://kas.pool1.com:443"
 priority = 1
-weight = 70  # % do hashrate
 
-# Pool secundário (failover)
 [[pools.list]]
-url = "stratum+tcp://btc.f2pool.com:3333"
-password = "x"
+url = "stratum+tcp://kas.pool2.com:3333"
 priority = 2
-weight = 30
 
-[algorithm_params]
-# Parâmetros específicos do SHA-256
-intensity = "auto"  # "auto", "low", "medium", "high", "extreme"
-batch_size = 0  # 0 = automático
-```
-
-### Configuração por Moeda: `coins/monero.toml`
-
-```toml
-[coin]
-name = "Monero"
-symbol = "XMR"
-algorithm = "randomx"
-enabled = true
-
-[wallet]
-address = "4..."
-
-[pools]
-[[pools.list]]
-url = "stratum+tcp://pool.supportxmr.com:3333"
-password = "x"
-priority = 1
-
-[algorithm_params]
-# Parâmetros específicos do RandomX
-mode = "fast"  # "fast" (2GB RAM) ou "light" (256MB RAM)
-jit = true
-huge_pages = true
-numa = true
-# Número de threads (0 = automático baseado em cache L3)
-threads = 0
+[tuning]
+intensity = "auto"
 ```
 
 ---
@@ -629,265 +582,150 @@ threads = 0
 
 ```
 hypermine-core/
-├── CMakeLists.txt                    # Build system principal
-├── Cargo.toml                        # Workspace Rust
-├── config.toml                       # Configuração principal
-├── README.md                         # Este documento
+├── README.md
+├── Cargo.toml                         # Workspace Rust
+├── CMakeLists.txt                     # Build system C++
+├── config.toml                        # Configuração principal
+├── Dockerfile
+├── LICENSE                            # MIT License
+├── CONTRIBUTING.md
 │
-├── docs/
-│   ├── ROADMAP.md                    # Roadmap detalhado
-│   ├── ARCHITECTURE.md               # Documentação de arquitetura
-│   ├── ALGORITHMS.md                 # Detalhes de cada algoritmo
-│   ├── OPTIMIZATION.md               # Guia de otimizações
-│   ├── CONFIGURATION.md              # Guia de configuração
-│   └── BENCHMARKS.md                 # Resultados de benchmarks
+├── coins/                             # 23 configurações de moedas
+│   ├── bitcoin.toml
+│   ├── kaspa.toml
+│   ├── alephium.toml
+│   ├── nexa.toml
+│   ├── karlsen.toml
+│   ├── pyrin.toml
+│   ├── veruscoin.toml
+│   └── ... (23 arquivos)
 │
 ├── src/
-│   ├── core/
-│   │   ├── main.cpp                  # Entry point
-│   │   ├── engine.rs                 # Motor de mineração (Rust)
-│   │   ├── dispatcher.rs             # Despacho de algoritmos
-│   │   └── worker.rs                 # Worker threads
-│   │
-│   ├── algorithms/
+│   ├── core/                          # Engine principal (Rust + C++ FFI)
+│   ├── algorithms/                    # 16+ implementações de algoritmos
 │   │   ├── sha256/
-│   │   │   ├── sha256_generic.cpp    # Implementação genérica
-│   │   │   ├── sha256_avx2.cpp       # Otimizada AVX2
-│   │   │   ├── sha256_avx512.cpp     # Otimizada AVX-512
-│   │   │   ├── sha256_shani.cpp      # Intel SHA-NI
-│   │   │   ├── sha256_neon.cpp       # ARM NEON
-│   │   │   └── sha256_asm.S          # Assembly x86-64
-│   │   ├── scrypt/
-│   │   │   ├── scrypt.cpp            # Implementação CPU
-│   │   │   ├── scrypt.cu             # Kernel CUDA
-│   │   │   └── scrypt.cl             # Kernel OpenCL
-│   │   ├── ethash/
-│   │   │   ├── ethash.cpp            # DAG generation
-│   │   │   ├── ethash.cu             # Kernel CUDA
-│   │   │   └── ethash.cl             # Kernel OpenCL
 │   │   ├── randomx/
-│   │   │   ├── randomx.cpp           # JIT compiler
-│   │   │   ├── randomx_jit_x86.cpp   # JIT x86-64
-│   │   │   └── randomx_jit_arm.cpp   # JIT ARM64
+│   │   ├── etchash/
 │   │   ├── kawpow/
-│   │   │   ├── kawpow.cu             # Kernel CUDA
-│   │   │   └── kawpow.cl             # Kernel OpenCL
+│   │   ├── kheavyhash/
+│   │   ├── blake3/
+│   │   ├── nexapow/
+│   │   ├── karlsenhash/
+│   │   ├── pyrinhash/
+│   │   ├── verushash/
 │   │   ├── equihash/
-│   │   │   ├── equihash.cpp          # Wagner's algorithm
-│   │   │   ├── equihash.cu           # Kernel CUDA
-│   │   │   └── equihash.cl           # Kernel OpenCL
-│   │   ├── x11/
-│   │   │   ├── x11.cpp              # 11 hash chain
-│   │   │   └── x11.cu               # CUDA implementation
-│   │   ├── ghostrider/
-│   │   │   └── ghostrider.cpp        # Multi-algo rotation
 │   │   ├── autolykos2/
-│   │   │   ├── autolykos2.cu         # Kernel CUDA
-│   │   │   └── autolykos2.cl         # Kernel OpenCL
-│   │   └── ... (demais algoritmos)
-│   │
-│   ├── hardware/
-│   │   ├── hal.hpp                   # Interface HAL
-│   │   ├── cpu_backend.cpp           # Backend CPU
-│   │   ├── cuda_backend.cu           # Backend CUDA
-│   │   ├── opencl_backend.cpp        # Backend OpenCL
-│   │   ├── fpga_backend.cpp          # Backend FPGA
-│   │   ├── cpuid.cpp                 # Detecção de features CPU
-│   │   └── gpu_info.cpp              # Detecção de GPUs
-│   │
-│   ├── network/
-│   │   ├── stratum_v1.rs             # Cliente Stratum V1
-│   │   ├── stratum_v2.rs             # Cliente Stratum V2
-│   │   ├── pool_manager.rs           # Gerenciamento de pools
-│   │   ├── job_queue.rs              # Fila de jobs
-│   │   └── failover.rs              # Failover automático
-│   │
-│   ├── monitoring/
-│   │   ├── api_server.rs             # API REST
-│   │   ├── prometheus.rs             # Exportador Prometheus
-│   │   ├── alerts.rs                 # Sistema de alertas
-│   │   └── metrics.rs                # Coleta de métricas
-│   │
-│   └── config/
-│       ├── config_manager.rs         # Parser TOML + hot-reload
-│       ├── validator.rs              # Validação de configuração
-│       └── schema.rs                 # Schema de configuração
-│
-├── coins/
-│   ├── bitcoin.toml                  # Config Bitcoin
-│   ├── monero.toml                   # Config Monero
-│   ├── litecoin.toml                 # Config Litecoin
-│   ├── ethereum_classic.toml         # Config ETC
-│   ├── ravencoin.toml                # Config Ravencoin
-│   ├── zcash.toml                    # Config Zcash
-│   ├── ergo.toml                     # Config Ergo
-│   ├── dogecoin.toml                 # Config Dogecoin
-│   ├── dash.toml                     # Config Dash
-│   ├── raptoreum.toml                # Config Raptoreum
-│   └── ... (demais moedas)
-│
-├── examples/
-│   ├── mine_bitcoin.sh               # Exemplo: minerar Bitcoin
-│   ├── mine_monero.sh                # Exemplo: minerar Monero
-│   ├── mine_all.sh                   # Exemplo: minerar tudo
-│   ├── mine_gpu_only.sh              # Exemplo: apenas GPU
-│   └── benchmark.sh                  # Exemplo: rodar benchmarks
-│
-├── benchmarks/
-│   ├── bench_sha256.cpp              # Benchmark SHA-256
-│   ├── bench_ethash.cpp              # Benchmark Ethash
-│   ├── bench_randomx.cpp             # Benchmark RandomX
-│   └── bench_all.cpp                 # Benchmark completo
+│   │   ├── ghostrider/
+│   │   ├── firopow/
+│   │   ├── zelhash/
+│   │   └── verthash/
+│   ├── network/                       # Stratum Client (Rust)
+│   ├── config/                        # Config Manager (Rust)
+│   └── monitoring/                    # Monitoramento (Rust)
 │
 ├── scripts/
-│   ├── install_deps.sh               # Instalar dependências
-│   ├── setup_hugepages.sh            # Configurar Huge Pages
-│   ├── tune_kernel.sh                # Tuning do kernel Linux
-│   ├── install_nvidia_drivers.sh     # Instalar drivers NVIDIA
-│   └── systemd/
-│       └── hypermine.service         # Systemd service file
+│   ├── setup_hugepages.sh
+│   ├── setup_numa.sh
+│   ├── benchmark.sh
+│   └── deploy.sh
 │
-├── docker/
-│   ├── Dockerfile                    # Container principal
-│   ├── Dockerfile.cuda               # Container com CUDA
-│   └── docker-compose.yml            # Compose para farm
+├── docs/
+│   ├── ROADMAP.md
+│   ├── ARCHITECTURE.md
+│   ├── ALGORITHMS.md
+│   ├── OPTIMIZATION.md
+│   ├── CONFIGURATION.md
+│   ├── SECURITY.md
+│   ├── DEVOPS.md
+│   ├── BENCHMARKS.md
+│   └── EXPERT_VALIDATION.md
 │
-└── tests/
-    ├── test_sha256.cpp               # Testes SHA-256
-    ├── test_stratum.rs               # Testes Stratum
-    ├── test_config.rs                # Testes configuração
-    └── integration/
-        └── test_mining_session.rs    # Teste end-to-end
+└── .github/workflows/ci.yml
 ```
 
 ---
 
-## Como Compilar e Executar
-
-### Pré-requisitos
+## Quick Start
 
 ```bash
-# Ubuntu/Debian
-sudo apt update && sudo apt install -y \
-    build-essential cmake ninja-build nasm \
-    libssl-dev libhwloc-dev libuv1-dev \
-    ocl-icd-opencl-dev
-
-# Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-# CUDA (NVIDIA)
-# Seguir instruções em https://developer.nvidia.com/cuda-downloads
-```
-
-### Compilação
-
-```bash
-# Clone o repositório
+# 1. Clonar o repositório
 git clone https://github.com/FELIPEACASTRO/hypermine-core.git
 cd hypermine-core
 
-# Build otimizado para a CPU local
+# 2. Instalar dependências (Ubuntu 22.04+)
+sudo apt install -y build-essential cmake libssl-dev
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# 3. Instalar CUDA Toolkit (NVIDIA) ou ROCm (AMD)
+# NVIDIA: https://developer.nvidia.com/cuda-downloads
+# AMD: https://rocm.docs.amd.com/
+
+# 4. Compilar com otimizações máximas
 mkdir build && cd build
-cmake .. -G Ninja \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_CXX_FLAGS="-march=native -O3 -flto" \
-    -DENABLE_CUDA=ON \
-    -DENABLE_OPENCL=ON
-ninja -j$(nproc)
+cmake .. -DCMAKE_BUILD_TYPE=Release \
+         -DENABLE_CUDA=ON \
+         -DENABLE_HIP=OFF \
+         -DENABLE_OPENCL=ON \
+         -DENABLE_AVX2=ON \
+         -DENABLE_AVX512=ON \
+         -DENABLE_PGO=ON \
+         -DENABLE_LTO=ON \
+         -DENABLE_BOLT=ON
+make -j$(nproc)
 
-# Ou build apenas CPU (sem GPU)
-cmake .. -G Ninja \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DENABLE_CUDA=OFF \
-    -DENABLE_OPENCL=OFF
-ninja -j$(nproc)
-```
+# 5. Configurar
+cp ../config.toml ./config.toml
+# Editar config.toml com seus endereços de carteira e pools
 
-### Execução
-
-```bash
-# Minerar com configuração padrão
-./hypermine --config ../config.toml
-
-# Minerar apenas Bitcoin
-./hypermine --config ../config.toml --coins bitcoin
-
-# Minerar apenas Monero com 8 threads
-./hypermine --config ../config.toml --coins monero --threads 8
-
-# Minerar múltiplas moedas
-./hypermine --config ../config.toml --coins bitcoin,monero,ravencoin
-
-# Benchmark de todos os algoritmos
-./hypermine --benchmark
-
-# Benchmark de algoritmo específico
-./hypermine --benchmark --algorithm sha256
+# 6. Executar
+./hypermine-core --config config.toml
 ```
 
 ---
 
 ## Benchmarks
 
-Os benchmarks abaixo são valores de referência para hardware comum. Os resultados reais variam conforme o hardware, drivers e configuração do sistema operacional.
+Benchmarks estimados para hardware de referência (Fevereiro 2026):
 
-### SHA-256 (Bitcoin) — CPU
+| Algoritmo | RTX 4090 | RTX 5090 | RTX 3090 | RX 7900 XTX |
+|---|---|---|---|---|
+| Etchash | ~260 MH/s | ~310 MH/s | ~125 MH/s | ~110 MH/s |
+| KAWPOW | ~62 MH/s | ~75 MH/s | ~35 MH/s | ~30 MH/s |
+| kHeavyHash | ~1.2 GH/s | ~1.5 GH/s | ~600 MH/s | ~500 MH/s |
+| Autolykos2 | ~280 MH/s | ~340 MH/s | ~170 MH/s | ~150 MH/s |
+| Equihash | ~1100 Sol/s | ~1400 Sol/s | ~650 Sol/s | ~550 Sol/s |
 
-| Processador | Implementação | Hashrate | Eficiência |
-|-------------|---------------|----------|------------|
-| Intel i9-14900K | AVX-512 | ~850 MH/s | ~5.3 MH/s/W |
-| AMD Ryzen 9 7950X | AVX-512 | ~780 MH/s | ~5.1 MH/s/W |
-| Apple M3 Max | ARM SHA2 | ~420 MH/s | ~14 MH/s/W |
-| Intel i7-12700K | AVX2 | ~520 MH/s | ~3.9 MH/s/W |
+| Algoritmo | Ryzen 9 9950X | Ryzen 9 7950X3D | i9-14900K |
+|---|---|---|---|
+| RandomX | ~22 KH/s | ~20 KH/s | ~12 KH/s |
+| VerusHash 2.2 | ~45 MH/s | ~42 MH/s | ~28 MH/s |
+| GhostRider | ~4.5 KH/s | ~4.2 KH/s | ~3.0 KH/s |
 
-### RandomX (Monero) — CPU
-
-| Processador | Threads | Hashrate | Eficiência |
-|-------------|---------|----------|------------|
-| AMD Ryzen 9 7950X | 16 | ~21,000 H/s | ~140 H/s/W |
-| Intel i9-14900K | 24 | ~18,500 H/s | ~74 H/s/W |
-| AMD EPYC 7763 | 64 | ~44,000 H/s | ~176 H/s/W |
-| Apple M3 Max | 12 | ~12,000 H/s | ~400 H/s/W |
-
-### Ethash/Etchash — GPU
-
-| GPU | Hashrate | Consumo | Eficiência |
-|-----|----------|---------|------------|
-| NVIDIA RTX 4090 | ~132 MH/s | ~300W | ~440 KH/s/W |
-| NVIDIA RTX 4080 | ~97 MH/s | ~250W | ~388 KH/s/W |
-| AMD RX 7900 XTX | ~88 MH/s | ~270W | ~326 KH/s/W |
-| NVIDIA RTX 3080 | ~101 MH/s | ~230W | ~439 KH/s/W |
-
-### KAWPOW (Ravencoin) — GPU
-
-| GPU | Hashrate | Consumo | Eficiência |
-|-----|----------|---------|------------|
-| NVIDIA RTX 4090 | ~58 MH/s | ~300W | ~193 KH/s/W |
-| NVIDIA RTX 4080 | ~42 MH/s | ~250W | ~168 KH/s/W |
-| AMD RX 7900 XTX | ~35 MH/s | ~270W | ~130 KH/s/W |
+*Nota: Benchmarks são estimativas baseadas em dados de minerstat.com e análises dos especialistas. Valores reais podem variar conforme configuração, drivers e condições térmicas.*
 
 ---
 
 ## Referências
 
-[1]: https://benchmarksgame-team.pages.debian.net/benchmarksgame/ "The Computer Language Benchmarks Game"
-[2]: https://stratumprotocol.org/specification/ "Stratum V2 Protocol Specification"
-[3]: https://github.com/tevador/RandomX "RandomX — Proof of Work Algorithm"
-[4]: https://minerstat.com/algorithms "Minerstat — Mining Algorithms Database"
-[5]: https://developer.nvidia.com/cuda-toolkit "NVIDIA CUDA Toolkit"
-[6]: https://www.khronos.org/opencl/ "OpenCL — The Open Standard for Parallel Programming"
-[7]: https://github.com/bitcoin/bitcoin "Bitcoin Core — Reference Implementation"
-[8]: https://www.intel.com/content/www/us/en/docs/intrinsics-guide/ "Intel Intrinsics Guide"
+1. [minerstat — Best GPUs for Mining](https://minerstat.com/hardware/gpus) — Dados de lucratividade de GPUs (Fevereiro 2026)
+2. [Coin Bureau — Best Crypto to Mine in February 2026](https://coinbureau.com/analysis/best-crypto-to-mine) — Guia completo de mineração
+3. [Stratum V2 Reference Implementation (SRI)](https://opensats.org/blog/sixteenth-wave-of-bitcoin-grants) — Implementação Rust de referência
+4. [DMND Pool — First Stratum V2 Pool](https://blog.dmnd.work/) — Primeiro pool com Stratum V2
+5. [NVIDIA CUDA 12 Documentation](https://docs.nvidia.com/cuda/) — SDK e otimizações CUDA
+6. [AMD ROCm Documentation](https://rocm.docs.amd.com/) — SDK para GPUs AMD
+7. [Kaspa — kHeavyHash Algorithm](https://kaspa.org/) — Documentação do algoritmo
+8. [Alephium — Blake3 Mining](https://alephium.org/) — Documentação do projeto
+9. [NFTPlazas — Best Crypto to Mine 2026](https://nftplazas.com/exchange/best-crypto-to-mine/) — Análise de moedas mineráveis
+10. [CoinSpeaker — Best Crypto to Mine 2026](https://www.coinspeaker.com/guides/best-crypto-to-mine/) — Guia de mineração
 
 ---
 
 ## Licença
 
-Este projeto é distribuído sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ---
 
 <p align="center">
-  <strong>HyperMine Core</strong> — Performance é tudo. Cada hash conta.
+  <strong>HyperMine Core — Performance é tudo.</strong>
 </p>

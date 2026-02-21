@@ -1,0 +1,21 @@
+[coin]
+name = "Kaspa"
+symbol = "KAS"
+algorithm = "kheavyhash"
+hardware = "gpu"
+enabled = true
+
+[wallet]
+address = "kaspa:YOUR_KASPA_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+ssl://kas.2miners.com:443"
+priority = 1
+
+[[pools.list]]
+url = "stratum+tcp://pool.woolypooly.com:3112"
+priority = 2
+
+[tuning]
+intensity = "auto"

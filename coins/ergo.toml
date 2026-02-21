@@ -1,0 +1,21 @@
+# ============================================================================
+# Ergo (ERG) — Autolykos2
+# ============================================================================
+
+[coin]
+name = "Ergo"
+symbol = "ERG"
+algorithm = "autolykos2"
+enabled = true
+
+[wallet]
+address = "YOUR_ERG_WALLET_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://erg.2miners.com:8888"
+password = "x"
+priority = 1
+
+[algorithm_params]
+intensity = "auto"

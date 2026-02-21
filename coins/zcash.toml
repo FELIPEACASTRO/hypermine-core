@@ -1,0 +1,22 @@
+# ============================================================================
+# Zcash (ZEC) — Equihash(200,9)
+# ============================================================================
+
+[coin]
+name = "Zcash"
+symbol = "ZEC"
+algorithm = "equihash_200_9"
+enabled = true
+
+[wallet]
+address = "YOUR_ZEC_WALLET_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://zec.2miners.com:1010"
+password = "x"
+priority = 1
+
+[algorithm_params]
+solver = "default"
+nonce_range = "auto"

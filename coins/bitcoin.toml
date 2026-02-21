@@ -1,0 +1,29 @@
+# ============================================================================
+# Bitcoin (BTC) — SHA-256
+# ============================================================================
+
+[coin]
+name = "Bitcoin"
+symbol = "BTC"
+algorithm = "sha256"
+enabled = true
+
+[wallet]
+address = "YOUR_BTC_WALLET_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://stratum.slushpool.com:3333"
+password = "x"
+priority = 1
+weight = 70
+
+[[pools.list]]
+url = "stratum+tcp://btc.f2pool.com:3333"
+password = "x"
+priority = 2
+weight = 30
+
+[algorithm_params]
+intensity = "auto"
+batch_size = 0

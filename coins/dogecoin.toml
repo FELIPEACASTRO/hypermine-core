@@ -1,0 +1,25 @@
+# ============================================================================
+# Dogecoin (DOGE) — Scrypt (merged mining com Litecoin)
+# ============================================================================
+
+[coin]
+name = "Dogecoin"
+symbol = "DOGE"
+algorithm = "scrypt"
+enabled = true
+
+[wallet]
+address = "YOUR_DOGE_WALLET_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://doge.f2pool.com:5588"
+password = "x"
+priority = 1
+
+[algorithm_params]
+n = 1024
+r = 1
+p = 1
+merged_mining = true
+parent_coin = "litecoin"

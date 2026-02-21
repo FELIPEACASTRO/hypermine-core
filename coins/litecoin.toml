@@ -1,0 +1,24 @@
+# ============================================================================
+# Litecoin (LTC) — Scrypt
+# ============================================================================
+
+[coin]
+name = "Litecoin"
+symbol = "LTC"
+algorithm = "scrypt"
+enabled = true
+
+[wallet]
+address = "YOUR_LTC_WALLET_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://ltc.f2pool.com:8888"
+password = "x"
+priority = 1
+
+[algorithm_params]
+n = 1024
+r = 1
+p = 1
+intensity = "auto"

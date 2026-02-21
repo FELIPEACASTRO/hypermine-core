@@ -1,0 +1,22 @@
+# ============================================================================
+# Raptoreum (RTM) — GhostRider
+# ============================================================================
+
+[coin]
+name = "Raptoreum"
+symbol = "RTM"
+algorithm = "ghostrider"
+enabled = true
+
+[wallet]
+address = "YOUR_RTM_WALLET_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://rtm.suprnova.cc:6273"
+password = "x"
+priority = 1
+
+[algorithm_params]
+intensity = "auto"
+threads = 0

@@ -1,0 +1,29 @@
+# ============================================================================
+# Ethereum Classic (ETC) — Etchash
+# ============================================================================
+
+[coin]
+name = "Ethereum Classic"
+symbol = "ETC"
+algorithm = "etchash"
+enabled = true
+
+[wallet]
+address = "YOUR_ETC_WALLET_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://etc.2miners.com:1010"
+password = "x"
+priority = 1
+
+[[pools.list]]
+url = "stratum+tcp://etc.f2pool.com:8118"
+password = "x"
+priority = 2
+
+[algorithm_params]
+dag_cache = true
+dag_generation_device = "gpu"
+epoch_precompute = true
+intensity = "auto"

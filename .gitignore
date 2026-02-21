@@ -1,0 +1,48 @@
+# Build directories
+build/
+target/
+dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+hypermine.log
+
+# Compiled objects
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+
+# CUDA compiled
+*.ptx
+*.cubin
+*.fatbin
+
+# Rust
+Cargo.lock
+
+# Config with secrets (keep template)
+# config.toml  ← template is tracked
+# coins/*.toml ← templates are tracked
+
+# Docker
+.docker/
+
+# Profiling
+*.prof
+*.nsys-rep
+*.ncu-rep

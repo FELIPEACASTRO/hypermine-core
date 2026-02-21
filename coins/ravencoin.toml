@@ -1,0 +1,22 @@
+# ============================================================================
+# Ravencoin (RVN) — KAWPOW
+# ============================================================================
+
+[coin]
+name = "Ravencoin"
+symbol = "RVN"
+algorithm = "kawpow"
+enabled = true
+
+[wallet]
+address = "YOUR_RVN_WALLET_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://rvn.2miners.com:6060"
+password = "x"
+priority = 1
+
+[algorithm_params]
+intensity = "auto"
+period_seed_cache = true

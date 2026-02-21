@@ -1,0 +1,20 @@
+[package]
+name = "hypermine-engine"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+hypermine-network = { path = "../network" }
+hypermine-config = { path = "../config" }
+hypermine-monitoring = { path = "../monitoring" }
+tokio.workspace = true
+crossbeam-channel.workspace = true
+crossbeam-utils.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+
+[lib]
+name = "hypermine_engine"
+crate-type = ["staticlib", "rlib"]

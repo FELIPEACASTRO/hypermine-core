@@ -1,0 +1,30 @@
+# ============================================================================
+# Monero (XMR) — RandomX
+# ============================================================================
+
+[coin]
+name = "Monero"
+symbol = "XMR"
+algorithm = "randomx"
+enabled = true
+
+[wallet]
+address = "YOUR_XMR_WALLET_ADDRESS"
+
+[pools]
+[[pools.list]]
+url = "stratum+tcp://pool.supportxmr.com:3333"
+password = "x"
+priority = 1
+
+[[pools.list]]
+url = "stratum+tcp://xmr.2miners.com:2222"
+password = "x"
+priority = 2
+
+[algorithm_params]
+mode = "fast"
+jit = true
+huge_pages = true
+numa = true
+threads = 0

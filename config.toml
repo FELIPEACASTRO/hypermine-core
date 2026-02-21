@@ -1,0 +1,127 @@
+# ============================================================================
+# HyperMine Core — Configuração Principal
+# ============================================================================
+# Este arquivo controla todos os aspectos do minerador.
+# Consulte docs/CONFIGURATION.md para documentação completa.
+# ============================================================================
+
+[general]
+# Nome do worker (identificação no pool)
+worker_name = "hypermine-rig-01"
+
+# Moedas a minerar (parametrizável)
+# ["*"]                              → Minera todas as moedas configuradas
+# ["bitcoin", "monero"]              → Minera apenas Bitcoin e Monero
+# ["*", "!dogecoin"]                 → Minera tudo exceto Dogecoin
+enabled_coins = ["*"]
+
+# Estratégia de seleção de moeda
+# "most_profitable" → Calcula lucratividade em tempo real
+# "round_robin"     → Alterna entre moedas em intervalos fixos
+# "manual"          → Usa a ordem da lista enabled_coins
+coin_strategy = "most_profitable"
+
+# Intervalo de recálculo de lucratividade (segundos)
+profitability_interval = 300
+
+# ============================================================================
+# Hardware
+# ============================================================================
+
+[hardware]
+# Dispositivos a utilizar
+# "auto"                             → Detecta e usa todos os dispositivos
+# ["cpu"]                            → Apenas CPU
+# ["gpu:0", "gpu:1"]                 → GPUs específicas
+# ["cpu", "gpu:0", "gpu:1"]          → CPU + GPUs específicas
+devices = "auto"
+
+# Limites globais
+max_cpu_threads = 0          # 0 = automático (todos os cores disponíveis)
+max_gpu_temperature = 80     # Celsius — reduz intensidade ao atingir
+max_gpu_power = 0            # Watts — 0 = sem limite
+gpu_fan_speed = 0            # % — 0 = controle automático
+
+# ============================================================================
+# CPU
+# ============================================================================
+
+[cpu]
+# Huge Pages (crítico para RandomX)
+enable_huge_pages = true
+huge_page_size = "2MB"       # "2MB" ou "1GB"
+
+# NUMA (servidores multi-socket)
+enable_numa = true
+
+# Prioridade do processo
+priority = "high"            # "normal", "high", "realtime"
+
+# Afinidade de cores (vazio = automático)
+# Exemplo: [0, 1, 2, 3, 4, 5, 6, 7]
+affinity = []
+
+# ============================================================================
+# GPU NVIDIA (CUDA)
+# ============================================================================
+
+[gpu.nvidia]
+cuda_compute_capability = "auto"  # "auto" ou "8.6", "9.0", etc.
+enable_tensor_cores = false
+persistent_kernel = true
+streams_per_gpu = 2
+
+# ============================================================================
+# GPU AMD (OpenCL)
+# ============================================================================
+
+[gpu.amd]
+opencl_platform = "auto"
+workgroup_size = 256
+enable_lds_optimization = true
+
+# ============================================================================
+# Rede
+# ============================================================================
+
+[network]
+tcp_nodelay = true
+keepalive_interval = 30      # segundos
+reconnect_delay = 1          # segundos
+max_reconnect_attempts = 0   # 0 = infinito
+prefer_stratum_v2 = true
+enable_tls = true
+
+# ============================================================================
+# Monitoramento
+# ============================================================================
+
+[monitoring]
+# API REST local
+api_enabled = true
+api_port = 8080
+api_bind = "127.0.0.1"
+
+# Prometheus
+prometheus_enabled = true
+prometheus_port = 9090
+
+# Alertas
+[monitoring.alerts]
+enable_discord = false
+discord_webhook = ""
+enable_telegram = false
+telegram_bot_token = ""
+telegram_chat_id = ""
+hashrate_drop_threshold = 10  # % de queda para alertar
+temperature_threshold = 85    # Celsius
+
+# ============================================================================
+# Logging
+# ============================================================================
+
+[logging]
+level = "info"               # "trace", "debug", "info", "warn", "error"
+file = "hypermine.log"
+max_size = "100MB"
+rotate = true

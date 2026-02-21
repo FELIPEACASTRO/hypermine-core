@@ -1,0 +1,20 @@
+[coin]
+name = "Radiant"
+symbol = "RXD"
+algorithm = "SHA512/256d"
+hardware = "GPU"
+asic_resistant = false
+min_vram_gb = 1
+
+[pool.primary]
+url = "stratum+tcp://rxd.2miners.com:4040"
+worker = "worker1"
+
+[pool.backup]
+url = "stratum+tcp://rxd.pool.com:3333"
+worker = "worker1"
+
+[hashrate.gtx1650]
+value = 180.0
+unit = "MH/s"
+power_watts = 50

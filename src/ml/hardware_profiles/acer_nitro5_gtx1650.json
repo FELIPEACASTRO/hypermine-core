@@ -1,0 +1,105 @@
+{
+    "profile_name": "Acer Nitro 5 — Intel Core i5-9300H + GTX 1650 (4GB)",
+    "gpu": {
+        "model": "NVIDIA GeForce GTX 1650",
+        "architecture": "Turing (TU117)",
+        "vram_gb": 4,
+        "vram_type": "GDDR5",
+        "cuda_cores": 896,
+        "base_clock_mhz": 1485,
+        "boost_clock_mhz": 1665,
+        "memory_bus_bits": 128,
+        "memory_bandwidth_gbps": 128,
+        "tdp_watts": 50,
+        "max_power_watts": 75,
+        "compute_capability": "7.5",
+        "pcie_gen": 3,
+        "pcie_lanes": 16
+    },
+    "cpu": {
+        "model": "Intel Core i5-9300H",
+        "architecture": "Coffee Lake (9th Gen)",
+        "cores": 4,
+        "threads": 8,
+        "base_clock_ghz": 2.4,
+        "boost_clock_ghz": 4.1,
+        "cache_l3_mb": 8,
+        "tdp_watts": 45,
+        "aes_ni": true,
+        "avx2": true,
+        "sse4_2": true
+    },
+    "system": {
+        "model": "Acer Nitro 5 (AN515-54)",
+        "ram_gb": 8,
+        "ram_type": "DDR4",
+        "storage_type": "SSD + HDD",
+        "network": "Killer Ethernet E2600 + Wi-Fi 6",
+        "cooling": "Acer NitroSense CoolBoost",
+        "total_system_watts": 120,
+        "idle_watts": 35,
+        "mining_watts_gpu": 85,
+        "mining_watts_cpu": 65,
+        "mining_watts_dual": 120
+    },
+    "energy": {
+        "cost_usd_per_kwh": 0.16,
+        "cost_brl_per_kwh": 0.88,
+        "usd_to_brl": 5.50,
+        "daily_cost_gpu_mining_usd": 0.4896,
+        "daily_cost_cpu_mining_usd": 0.3744,
+        "daily_cost_dual_mining_usd": 0.6912,
+        "monthly_cost_gpu_mining_usd": 14.69,
+        "monthly_cost_cpu_mining_usd": 11.23,
+        "yearly_cost_gpu_mining_usd": 178.70,
+        "yearly_cost_cpu_mining_usd": 136.66
+    },
+    "hashrates": {
+        "gpu_algorithms": {
+            "Autolykos2_ERG": {"hashrate": 36.0, "unit": "MH/s", "power_watts": 50},
+            "KawPow_RVN": {"hashrate": 7.15, "unit": "MH/s", "power_watts": 66},
+            "ZelHash_FLUX": {"hashrate": 12.0, "unit": "Sol/s", "power_watts": 50},
+            "FiroPow_FIRO": {"hashrate": 6.0, "unit": "MH/s", "power_watts": 66},
+            "Verthash_VTC": {"hashrate": 0.3, "unit": "MH/s", "power_watts": 50},
+            "SHA512_256d_RXD": {"hashrate": 180.0, "unit": "MH/s", "power_watts": 50},
+            "DynexSolve_DNX": {"hashrate": 350.0, "unit": "MH/s", "power_watts": 50},
+            "Blake3_ALPH": {"hashrate": 90.0, "unit": "MH/s", "power_watts": 50},
+            "FishHash_IRON": {"hashrate": 5.0, "unit": "MH/s", "power_watts": 50},
+            "kHeavyHash_KAS": {"hashrate": 100.0, "unit": "MH/s", "power_watts": 50},
+            "PyrinHash_PYI": {"hashrate": 150.0, "unit": "MH/s", "power_watts": 50},
+            "MeowPow_MEWC": {"hashrate": 6.5, "unit": "MH/s", "power_watts": 66}
+        },
+        "cpu_algorithms": {
+            "RandomX_XMR": {"hashrate": 2.5, "unit": "kH/s", "power_watts": 45},
+            "GhostRider_RTM": {"hashrate": 1.2, "unit": "kH/s", "power_watts": 45},
+            "VerusHash_VRSC": {"hashrate": 1.5, "unit": "MH/s", "power_watts": 45},
+            "AstroBWT_DERO": {"hashrate": 150.0, "unit": "H/s", "power_watts": 45},
+            "RandomX_ZEPH": {"hashrate": 2.5, "unit": "kH/s", "power_watts": 45},
+            "RandomX_WOW": {"hashrate": 2.5, "unit": "kH/s", "power_watts": 45},
+            "RandomSFX_XLA": {"hashrate": 2.0, "unit": "kH/s", "power_watts": 45}
+        }
+    },
+    "limitations": {
+        "max_dag_size_gb": 3.8,
+        "coins_excluded_by_vram": [
+            "Ethereum Classic (ETC) — DAG > 4GB",
+            "Conflux (CFX) — DAG > 4GB",
+            "Beam (BEAM) — DAG > 4GB",
+            "Grin (GRIN) — Cuckatoo31+ > 4GB",
+            "OctaSpace (OCTA) — ETCHash DAG > 4GB"
+        ],
+        "coins_excluded_asic_only": [
+            "Bitcoin (BTC) — SHA-256 ASIC",
+            "Litecoin (LTC) — Scrypt ASIC",
+            "Dogecoin (DOGE) — Scrypt ASIC",
+            "Dash (DASH) — X11 ASIC",
+            "Zcash (ZEC) — Equihash ASIC",
+            "Bitcoin Cash (BCH) — SHA-256 ASIC",
+            "Kadena (KDA) — Blake2S ASIC",
+            "Siacoin (SC) — Blake2b ASIC",
+            "Handshake (HNS) — Blake2B+SHA3 ASIC"
+        ],
+        "thermal_throttling_temp_c": 85,
+        "recommended_max_temp_c": 78
+    }
+}

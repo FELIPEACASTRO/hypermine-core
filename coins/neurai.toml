@@ -1,0 +1,16 @@
+[coin]
+name = "Neurai"
+symbol = "XNA"
+algorithm = "KawPow"
+hardware = "GPU"
+asic_resistant = true
+min_vram_gb = 4
+
+[pool.primary]
+url = "stratum+tcp://xna.pool.com:3333"
+worker = "worker1"
+
+[hashrate.gtx1650]
+value = 7.0
+unit = "MH/s"
+power_watts = 66

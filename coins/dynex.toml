@@ -1,0 +1,20 @@
+[coin]
+name = "Dynex"
+symbol = "DNX"
+algorithm = "DynexSolve"
+hardware = "GPU"
+asic_resistant = true
+min_vram_gb = 3
+
+[pool.primary]
+url = "stratum+tcp://dnx.pool.com:3333"
+worker = "worker1"
+
+[pool.backup]
+url = "stratum+tcp://dnx.herominers.com:1120"
+worker = "worker1"
+
+[hashrate.gtx1650]
+value = 350.0
+unit = "MH/s"
+power_watts = 50

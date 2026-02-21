@@ -1,0 +1,20 @@
+[coin]
+name = "Iron Fish"
+symbol = "IRON"
+algorithm = "FishHash"
+hardware = "GPU"
+asic_resistant = true
+min_vram_gb = 4
+
+[pool.primary]
+url = "stratum+tcp://iron.2miners.com:3030"
+worker = "worker1"
+
+[pool.backup]
+url = "stratum+tcp://iron.herominers.com:1145"
+worker = "worker1"
+
+[hashrate.gtx1650]
+value = 5.0
+unit = "MH/s"
+power_watts = 50

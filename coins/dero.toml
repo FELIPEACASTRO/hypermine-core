@@ -1,0 +1,16 @@
+[coin]
+name = "Dero"
+symbol = "DERO"
+algorithm = "AstroBWT"
+hardware = "CPU"
+asic_resistant = true
+min_vram_gb = 0
+
+[pool.primary]
+url = "stratum+tcp://dero.herominers.com:1111"
+worker = "worker1"
+
+[hashrate.i5_9300h]
+value = 150.0
+unit = "H/s"
+power_watts = 45

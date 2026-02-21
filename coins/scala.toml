@@ -1,0 +1,16 @@
+[coin]
+name = "Scala"
+symbol = "XLA"
+algorithm = "RandomSFX"
+hardware = "CPU"
+asic_resistant = true
+min_vram_gb = 0
+
+[pool.primary]
+url = "stratum+tcp://xla.herominers.com:1111"
+worker = "worker1"
+
+[hashrate.i5_9300h]
+value = 2.0
+unit = "kH/s"
+power_watts = 45

@@ -1,0 +1,16 @@
+[coin]
+name = "MeowCoin"
+symbol = "MEWC"
+algorithm = "MeowPow"
+hardware = "GPU"
+asic_resistant = true
+min_vram_gb = 4
+
+[pool.primary]
+url = "stratum+tcp://mewc.pool.com:3333"
+worker = "worker1"
+
+[hashrate.gtx1650]
+value = 6.5
+unit = "MH/s"
+power_watts = 66

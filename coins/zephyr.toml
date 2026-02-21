@@ -1,0 +1,16 @@
+[coin]
+name = "Zephyr Protocol"
+symbol = "ZEPH"
+algorithm = "RandomX"
+hardware = "CPU"
+asic_resistant = true
+min_vram_gb = 0
+
+[pool.primary]
+url = "stratum+tcp://zeph.herominers.com:1123"
+worker = "worker1"
+
+[hashrate.i5_9300h]
+value = 2.5
+unit = "kH/s"
+power_watts = 45
